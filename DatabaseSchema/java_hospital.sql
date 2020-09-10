@@ -55,6 +55,95 @@ LOCK TABLES `hl_Employees` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `hl_MedicalConsultation`
+--
+
+DROP TABLE IF EXISTS `hl_MedicalConsultation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hl_MedicalConsultation` (
+  `mc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `mc_secretary_id` int(11) NOT NULL,
+  `mc_doctor_id` int(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
+  `mc_appointment` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `mc_confirmation` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`mc_id`),
+  KEY `fk_employee_secratary` (`mc_secretary_id`),
+  KEY `fk_employee_doctor` (`mc_doctor_id`),
+  KEY `fk_patient_MC` (`patient_id`),
+  CONSTRAINT `fk_employee_doctor` FOREIGN KEY (`mc_doctor_id`) REFERENCES `hl_Employees` (`employees_id`),
+  CONSTRAINT `fk_employee_secratary` FOREIGN KEY (`mc_secretary_id`) REFERENCES `hl_Employees` (`employees_id`),
+  CONSTRAINT `fk_patient_MC` FOREIGN KEY (`patient_id`) REFERENCES `hl_Patients` (`patient_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hl_MedicalConsultation`
+--
+
+LOCK TABLES `hl_MedicalConsultation` WRITE;
+/*!40000 ALTER TABLE `hl_MedicalConsultation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hl_MedicalConsultation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hl_MedicalDiagnostic`
+--
+
+DROP TABLE IF EXISTS `hl_MedicalDiagnostic`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hl_MedicalDiagnostic` (
+  `md_id` int(11) NOT NULL AUTO_INCREMENT,
+  `mc_id` int(11) NOT NULL,
+  `md_observations` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
+  `md_beginTime` time NOT NULL,
+  `md_endTime` time NOT NULL,
+  PRIMARY KEY (`md_id`),
+  KEY `fk_mc_md` (`mc_id`),
+  CONSTRAINT `fk_mc_md` FOREIGN KEY (`mc_id`) REFERENCES `hl_MedicalConsultation` (`mc_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hl_MedicalDiagnostic`
+--
+
+LOCK TABLES `hl_MedicalDiagnostic` WRITE;
+/*!40000 ALTER TABLE `hl_MedicalDiagnostic` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hl_MedicalDiagnostic` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hl_Medicine`
+--
+
+DROP TABLE IF EXISTS `hl_Medicine`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hl_Medicine` (
+  `medicine_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tp_id` int(11) NOT NULL,
+  `medicine_costPrice` double NOT NULL DEFAULT '0',
+  `medicine_costSale` double NOT NULL DEFAULT '0',
+  `medicine_existence` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`medicine_id`),
+  KEY `fk_typepresentation_medicine` (`tp_id`),
+  CONSTRAINT `fk_typepresentation_medicine` FOREIGN KEY (`tp_id`) REFERENCES `hl_TypePresentation` (`tp_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hl_Medicine`
+--
+
+LOCK TABLES `hl_Medicine` WRITE;
+/*!40000 ALTER TABLE `hl_Medicine` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hl_Medicine` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `hl_Modules`
 --
 
@@ -190,6 +279,30 @@ LOCK TABLES `hl_Specialitys` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `hl_TypePresentation`
+--
+
+DROP TABLE IF EXISTS `hl_TypePresentation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hl_TypePresentation` (
+  `tp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tp_name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `tp_description` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`tp_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hl_TypePresentation`
+--
+
+LOCK TABLES `hl_TypePresentation` WRITE;
+/*!40000 ALTER TABLE `hl_TypePresentation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hl_TypePresentation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `hl_Users`
 --
 
@@ -218,6 +331,34 @@ LOCK TABLES `hl_Users` WRITE;
 /*!40000 ALTER TABLE `hl_Users` DISABLE KEYS */;
 /*!40000 ALTER TABLE `hl_Users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `hl_mdDetails`
+--
+
+DROP TABLE IF EXISTS `hl_mdDetails`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hl_mdDetails` (
+  `md_id` int(11) NOT NULL,
+  `mdDetails_systomp` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
+  `medicine_id` int(11) DEFAULT NULL,
+  `mdDetails_dose` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  KEY `fk_md_mdDetails` (`md_id`),
+  KEY `fk_medicine_mddetails` (`medicine_id`),
+  CONSTRAINT `fk_md_mdDetails` FOREIGN KEY (`md_id`) REFERENCES `hl_MedicalDiagnostic` (`md_id`),
+  CONSTRAINT `fk_medicine_mddetails` FOREIGN KEY (`medicine_id`) REFERENCES `hl_Medicine` (`medicine_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hl_mdDetails`
+--
+
+LOCK TABLES `hl_mdDetails` WRITE;
+/*!40000 ALTER TABLE `hl_mdDetails` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hl_mdDetails` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -228,4 +369,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-22 23:13:32
+-- Dump completed on 2020-09-10  0:27:22
