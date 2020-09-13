@@ -9,7 +9,9 @@ package com.hospitalcm.api;
 import com.hospitalcm.DAO.pruebaApiUsuarioDAO;
 import com.hospitalcm.model.pruebaApiUsuario;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 import javax.ws.rs.Consumes; 
 import javax.ws.rs.DELETE;
@@ -19,27 +21,23 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path; 
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces; 
+import javax.ws.rs.container.AsyncResponse;
+import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType; 
 import javax.ws.rs.core.Response;
 
 /**
  * @author Cristian Coronado
  */
-@Path("pruebaUsuarioApi")
+@Path("/pruebaUsuarioApi")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 
 public class pruebaUsuarioApi {
-    
-    @GET
-    public Response getApiUsuarios(){
-        return Response.ok().build();
-    }
+    pruebaApiUsuarioDAO testAPI = new pruebaApiUsuarioDAO();
     
     @POST
     public Response agregarUsuario(pruebaApiUsuario registro) throws SQLException{
-        
-        pruebaApiUsuarioDAO testAPI = new pruebaApiUsuarioDAO();
         
         boolean agregado = testAPI.agregarPruebaApiUsuario(registro);  
         if (agregado){
@@ -50,4 +48,20 @@ public class pruebaUsuarioApi {
         
     }
     
+    @GET
+    public List<pruebaApiUsuario> getTodosUsuarios(){
+        List<pruebaApiUsuario> listapruebaApiUsuarios = new ArrayList<pruebaApiUsuario>();
+        listapruebaApiUsuarios = testAPI.obtenerPruebaApiUsuarios();
+        
+        return listapruebaApiUsuarios;
+    }
+    
+    @GET
+    @Path("/{id}")
+    public List<pruebaApiUsuario> getPruebaUsuario(@PathParam("id") int id){
+        List<pruebaApiUsuario> listapruebaApiUsuario = new ArrayList<pruebaApiUsuario>();
+        listapruebaApiUsuario = testAPI.obtenerPruebaApiUsuario(id);
+        
+        return listapruebaApiUsuario;
+    }
 }

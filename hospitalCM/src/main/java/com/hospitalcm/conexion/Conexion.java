@@ -24,7 +24,7 @@ public class Conexion {
              dataSource.setUrl("jdbc:mysql://dnzmakers.com:3306/gearsgtc_hospital_java?useTimeZone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false");
              dataSource.setInitialSize(20);
              dataSource.setMaxIdle(15);
-             dataSource.setMaxTotal(20);
+             dataSource.setMaxTotal(1);
              dataSource.setMaxWaitMillis(5000);
          }
          return dataSource;
