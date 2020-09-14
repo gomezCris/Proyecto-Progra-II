@@ -1,0 +1,8 @@
+# Created by https://www.toptal.com/developers/gitignore/api/maven
+# Edit at https://www.toptal.com/developers/gitignore?templates=maven
+
+### Maven ###
+hospitalCM/
+pom.xml
+nb-configuration.xml
+# End of https://www.toptal.com/developers/gitignore/api/maven
