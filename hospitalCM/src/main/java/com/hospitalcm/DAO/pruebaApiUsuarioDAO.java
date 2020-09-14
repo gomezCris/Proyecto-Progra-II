@@ -153,4 +153,26 @@ public class pruebaApiUsuarioDAO {
         
         return listaUsuario;
     }
+     
+     public boolean eliminarPruebaApiUsuario(int idBuscar){
+        boolean res;
+        
+        try{
+            String sql = "DELETE FROM gearsgtc_hospital_java.pruebaApiUsuario where id = " + Integer.toString(idBuscar);
+            connection = con.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            statement.execute();
+            //rs = statement.executeQuery(sql);
+            connection.close();
+            res = true;
+            
+        }catch(SQLException e){
+            e.getMessage();
+            res = false;
+           return res;
+        }
+        
+        return res;
+    }
 }

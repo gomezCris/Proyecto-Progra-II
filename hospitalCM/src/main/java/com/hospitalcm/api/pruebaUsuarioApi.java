@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hospitalcm.api;
 
 //Importación de librerías
@@ -63,5 +58,17 @@ public class pruebaUsuarioApi {
         listapruebaApiUsuario = testAPI.obtenerPruebaApiUsuario(id);
         
         return listapruebaApiUsuario;
+    }
+    
+    @DELETE
+    @Path("/{id}")
+    public Response eliminarPruebaUsuario(@PathParam("id") int id){
+        boolean eliminado = testAPI.eliminarPruebaApiUsuario(id);
+        
+        if(eliminado){
+            return Response.status(200, "¡Usuario Eliminado Correctamente!").build();
+        }else{
+            return Response.status(500, "Ocurrió un error al tratar de eliminar el usuario").build();   
+        }
     }
 }
