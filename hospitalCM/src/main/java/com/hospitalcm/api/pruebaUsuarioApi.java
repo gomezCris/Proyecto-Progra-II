@@ -68,7 +68,7 @@ public class pruebaUsuarioApi {
         if(eliminado){
             return Response.status(200, "¡Usuario Eliminado Correctamente!").build();
         }else{
-            return Response.status(500, "Ocurrió un error al tratar de eliminar el usuario").build();   
+            return Response.status(500, "Ocurrió un error al tratar de eliminar el usuario, intente más tarde").build();   
         }
     }
 }
