@@ -1,5 +1,10 @@
+# Created by https://www.toptal.com/developers/gitignore/api/maven
+# Edit at https://www.toptal.com/developers/gitignore?templates=maven
 
-hospitalCM/target/test-classes/.netbeans_automatic_build
+### Maven ###
+hospitalCM/
+pom.xml
+nb-configuration.xml
 
 hospitalCM/target/
 pom.xml.tag
@@ -10,6 +15,8 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+
 .mvn/wrapper/maven-wrapper.jar
 
 hospitalCM/target/test-classes/*
+.netbeans_automatic_build
