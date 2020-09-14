@@ -19,3 +19,4 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 hospitalCM/target/test-classes/*
+.netbeans_automatic_build
