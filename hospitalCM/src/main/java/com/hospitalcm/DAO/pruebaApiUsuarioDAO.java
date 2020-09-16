@@ -26,6 +26,19 @@ public class pruebaApiUsuarioDAO {
     ResultSet rs;
     int resultado;
  
+    //Declaración de variables de objeto
+    int id;
+    String nombre;
+    String apellido;
+    int edad;
+    String tel;
+    
+    //Declaración de Consultas
+    String selectAll = "SELECT * FROM gearsgtc_hospital_java.pruebaApiUsuario";
+    String selectByID = "SELECT * FROM gearsgtc_hospital_java.pruebaApiUsuario where id = ";
+    String deleteByID = "DELETE FROM gearsgtc_hospital_java.pruebaApiUsuario where id = ";
+    String UPDATE;
+    String INSERT = "INSERT INTO pruebaApiUsuario VALUES(?, ?, ?, ?, ?)";
     
     //MÉTODOS CRUD
     //AGREGAR
@@ -33,7 +46,7 @@ public class pruebaApiUsuarioDAO {
         boolean res;
         
         try{
-            String sql = "INSERT INTO pruebaApiUsuario VALUES(?, ?, ?, ?, ?)";
+            String sql = INSERT;
             connection = con.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             
@@ -44,12 +57,10 @@ public class pruebaApiUsuarioDAO {
             statement.setInt(4, objPrueba.getEdad());
             statement.setString(5, objPrueba.getTel());
             statement.execute();
-            //rs = statement.executeQuery(sql);
             connection.close();
             res = true;
             
         }catch(SQLException e){
-            e.printStackTrace();
             e.getMessage();
             res = false;
            return res;
@@ -83,11 +94,9 @@ public class pruebaApiUsuarioDAO {
     public  List<pruebaApiUsuario> obtenerPruebaApiUsuarios(){
         boolean res;
         List<pruebaApiUsuario> listaUsuarios = new ArrayList<pruebaApiUsuario>();
-        String registro;
-        
         
         try{
-            String sql = "SELECT * FROM gearsgtc_hospital_java.pruebaApiUsuario";
+            String sql = selectAll;
             connection = con.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.execute();
@@ -97,20 +106,18 @@ public class pruebaApiUsuarioDAO {
             
             if(res){
                 while(rs.next()){
-                    int id = rs.getInt("id");
-                    String nombre = rs.getString("nombre");
-                    String apellido = rs.getString("apellido");
-                    int edad = rs.getInt("edad");
-                    String tel = rs.getString("tel");
+                    id = rs.getInt("id");
+                    nombre = rs.getString("nombre");
+                    apellido = rs.getString("apellido");
+                    edad = rs.getInt("edad");
+                    tel = rs.getString("tel");
                     pruebaApiUsuario objUsuario = new pruebaApiUsuario(id, nombre, apellido, edad, tel);
                     listaUsuarios.add(objUsuario);
                 }
             }
             connection.close();
         }catch(SQLException e){
-            e.printStackTrace();
             e.getMessage();
-            res = false;
            return listaUsuarios;
         }
         
@@ -118,13 +125,12 @@ public class pruebaApiUsuarioDAO {
     }
     
     //OBTENER UN USUARIO
-     public  List<pruebaApiUsuario> obtenerPruebaApiUsuario(int idBuscar){
+     public  pruebaApiUsuario obtenerPruebaApiUsuario(int idBuscar){
         boolean res;
-        List<pruebaApiUsuario> listaUsuario = new ArrayList<pruebaApiUsuario>();
-        
+        pruebaApiUsuario objUsuario;
         
         try{
-            String sql = "SELECT * FROM gearsgtc_hospital_java.pruebaApiUsuario where id = " + Integer.toString(idBuscar);
+            String sql = selectByID + Integer.toString(idBuscar);
             connection = con.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.execute();
@@ -134,36 +140,31 @@ public class pruebaApiUsuarioDAO {
             
             if(res){
                 while(rs.next()){
-                    int id = rs.getInt("id");
-                    String nombre = rs.getString("nombre");
-                    String apellido = rs.getString("apellido");
-                    int edad = rs.getInt("edad");
-                    String tel = rs.getString("tel");
-                    pruebaApiUsuario objUsuario = new pruebaApiUsuario(id, nombre, apellido, edad, tel);
-                    listaUsuario.add(objUsuario);
+                    id = rs.getInt("id");
+                    nombre = rs.getString("nombre");
+                    apellido = rs.getString("apellido");
+                    edad = rs.getInt("edad");
+                    tel = rs.getString("tel");
                 }
             }
             connection.close();
         }catch(SQLException e){
-            e.printStackTrace();
             e.getMessage();
-            res = false;
-           return listaUsuario;
+           return null;
         }
-        
-        return listaUsuario;
+        objUsuario = new pruebaApiUsuario(id, nombre, apellido, edad, tel);
+        return objUsuario;
     }
      
      public boolean eliminarPruebaApiUsuario(int idBuscar){
         boolean res;
         
         try{
-            String sql = "DELETE FROM gearsgtc_hospital_java.pruebaApiUsuario where id = " + Integer.toString(idBuscar);
+            String sql =  deleteByID + Integer.toString(idBuscar);
             connection = con.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             
             statement.execute();
-            //rs = statement.executeQuery(sql);
             connection.close();
             res = true;
             
