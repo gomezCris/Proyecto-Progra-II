@@ -31,7 +31,9 @@ import javax.ws.rs.core.Response;
 public class pruebaUsuarioApi {
     pruebaApiUsuarioDAO testAPI = new pruebaApiUsuarioDAO();
     
-    //Método POST: Utilizado para insertar un usuario de pruebas en la tabla de base de datos correspondiente
+    /*Método POST: Utilizado para insertar un usuario de pruebas en la tabla de
+                   base de datos correspondiente
+    */
     @POST
     public Response agregarUsuario(pruebaApiUsuario registro) throws SQLException{
         
@@ -44,8 +46,9 @@ public class pruebaUsuarioApi {
         
     }
     
-    //Método GET: Utilizado para seleccionar todos los usuarios en la tabla de 
-    //base de datos correspondiente
+    /*Método GET: Utilizado para seleccionar todos los usuarios en la tabla de 
+                base de datos correspondiente
+    */
     @GET
     public List<pruebaApiUsuario> getTodosUsuarios(){
         List<pruebaApiUsuario> listapruebaApiUsuarios = new ArrayList<pruebaApiUsuario>();
@@ -54,8 +57,9 @@ public class pruebaUsuarioApi {
         return listapruebaApiUsuarios;
     }
     
-    //Método GET: Utilizado para seleccionar  un usuario de pruebas en la tabla 
-    //de base de datos correspondiente por medio de su ID
+    /*Método GET: Utilizado para seleccionar  un usuario de pruebas en la tabla 
+                de base de datos correspondiente por medio de su ID
+    */
     @GET
     @Path("/{id}")
     public pruebaApiUsuario getPruebaUsuario(@PathParam("id") int id){
@@ -69,8 +73,9 @@ public class pruebaUsuarioApi {
         }
     }
     
-    //Método DELETE: Utilizado para eliminar un usuario de pruebas en la tabla 
-    //de base de datos correspondiente
+    /*Método DELETE: Utilizado para eliminar un usuario de pruebas en la tabla 
+                    de base de datos correspondiente
+    */
     @DELETE
     @Path("/{id}")
     public Response eliminarPruebaUsuario(@PathParam("id") int id){
