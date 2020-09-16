@@ -1,0 +1,8 @@
+com\hospitalcm\DAO\pruebaApiUsuarioDAO.class
+com\hospitalcm\model\UsersModel.class
+com\hospitalcm\model\pruebaApiUsuario.class
+com\hospitalcm\hospitalcm\JAXRSConfiguration.class
+com\hospitalcm\api\RestApplication.class
+com\hospitalcm\api\pruebaUsuarioApi.class
+com\hospitalcm\conexion\Conexion.class
+com\hospitalcm\hospitalcm\resources\JavaEE8Resource.class

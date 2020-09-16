@@ -2,8 +2,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=maven
 
 ### Maven ###
-hospitalCM/
+#hospitalCM/
 #pom.xml
-nb-configuration.xml
-./target
+./hospitalCM/nb-configuration.xml
+./hospitalCM/target
 .gitignore2
