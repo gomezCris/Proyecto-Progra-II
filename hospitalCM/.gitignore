@@ -4,6 +4,6 @@
 ### Maven ###
 #hospitalCM/
 #pom.xml
-./hospitalCM/nb-configuration.xml
-./hospitalCM/target
-.gitignore2
+nb-configuration.xml
+target/
+./target/
