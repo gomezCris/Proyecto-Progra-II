@@ -1,10 +1,11 @@
 
 package com.hospitalcm.DAO;
-
+// Importacion de clase
+import com.hospitalcm.DAO.permisosDAO;
 //importar el paquete de conexión a DB
 import com.hospitalcm.conexion.Conexion;
 //Importamos el model de Roles
-import com.hospitalcm.model.rolesModel;
+import com.hospitalcm.model.PermisosModel;
 //Librerías de conexión a DB
 import java.sql.Connection;
 //Para ejecutar consultas a DB
@@ -18,7 +19,8 @@ import java.util.ArrayList;
 //Uso de listas
 import java.util.List;
 
-public class rolesDAO {
+
+public class permisosDAO {
     
     //Obtener conexión a DB
     Connection connection;
@@ -28,21 +30,21 @@ public class rolesDAO {
     ResultSet rs;
     
     //Declaración de variables de objeto
-    int rolId;
-    String rolName;
-    String rolDescription;
-    boolean rolActive;
+    boolean Permission_create;
+    boolean Permission_read;
+    boolean Permission_update;
+    boolean Permission_delete;
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from hl_Roles";
-    String selectByID = "Select * from hl_Roles where role_id = ";
-    String deleteByID = "Delete * From hl_Roles where role_id = ";
+    String selectALL = "Select * from hl_Permissions";
+    String selectByID = "Select * from hl_Permissions where module_id = ";
+    String deleteByID = "Delete * From hl_Permissions where module_id = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Roles VALUES (?, ?, ?)";
+    String INSERT = "Insert into hl_Permissions VALUES (?, ?, ?)";
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
-   public boolean addRole(rolesModel objRol){
+   public boolean addPermission(PermisosModel objPermission){
        //Variable de resultado que se retornará
        boolean res;
        
@@ -55,9 +57,10 @@ public class rolesDAO {
            PreparedStatement statement = connection.prepareStatement(sql);
            
            //ASignamos los valores a la consulta INSERT
-           statement.setString(1, objRol.getRolName());
-           statement.setString(2, objRol.getRolDescription());
-           statement.setBoolean(3, objRol.isRolActive());
+           statement.setBoolean(1, objPermission.isPermission_create());
+           statement.setBoolean(2, objPermission.isPermission_read());
+           statement.setBoolean(3, objPermission.isPermission_update());
+           statement.setBoolean(4, objPermission.isPermission_delete());
            //Ejecutamos la consulta
            statement.execute();
            //Cerramos la conexión
@@ -74,19 +77,21 @@ public class rolesDAO {
    }
     
    
-   public void getRoles(){
+   public void getPermissions(){
        
    }
    
-   public void getRole(){
+   public void getPermission(){
        
    }
    
-   public void deleteRole(){
+   public void deletePermission(){
        
    }
    
-   public void updateRole(){
+   public void updatePermission(){
        
    }
+   
+ 
 }

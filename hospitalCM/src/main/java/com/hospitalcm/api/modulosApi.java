@@ -1,8 +1,9 @@
 
 package com.hospitalcm.api;
+
 //Importación de clase
-import com.hospitalcm.DAO.rolesDAO;
-import com.hospitalcm.model.rolesModel;
+import com.hospitalcm.DAO.modulosDAO;
+import com.hospitalcm.model.ModulosModel;
 //Importación de librerías
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,23 +23,24 @@ import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType; 
 import javax.ws.rs.core.Response;
 
-@Path("/roles")
+@Path("/modulos")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 
-public class rolesApi {
+
+public class modulosApi {
     
-    //Instanciamos el objeto DAO para poder acceder a sus métodos
-    rolesDAO objRol = new rolesDAO();
+     //Instanciamos el objeto DAO para poder acceder a sus métodos
+    modulosDAO objModule = new modulosDAO();
     
-    /*Método POST: Utilizado para insertar un rol en la tabla de
+    /*Método POST: Utilizado para insertar un modulo en la tabla de
                    base de datos correspondiente
     */
     @POST
     
-    public Response addRol(rolesModel rol){
+    public Response addModule(ModulosModel module){
         //Guarda el retorno de la operación del DAO
-        boolean result = objRol.addRole(rol);
+        boolean result = objModule.addModule(module);
         
         //VAlida que la creación fue exitosa
         if(result){
@@ -46,8 +48,7 @@ public class rolesApi {
             return Response.status(Response.Status.CREATED).build();
         }else{
             //Retorna una respuesta de tipo Json con un mensaje de error
-            return Response.status(400, "Ocurrió un error al registrar el rol").build();
+            return Response.status(400, "Ocurrió un error al registrar el modulo").build();
         }
     }
-    
 }

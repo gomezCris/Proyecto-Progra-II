@@ -2,8 +2,9 @@ package com.hospitalcm.model;
 
 /**
  *
- * @author Vera
+ * @author Liz 
  */
+
 public class rolesModel {
     //Declaración de variables
     int rolId;

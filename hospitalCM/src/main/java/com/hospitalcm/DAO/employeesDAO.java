@@ -4,9 +4,10 @@ package com.hospitalcm.DAO;
 //importar el paquete de conexión a DB
 import com.hospitalcm.conexion.Conexion;
 //Importamos el model de Roles
-import com.hospitalcm.model.rolesModel;
+import com.hospitalcm.model.EmployeesModel;
 //Librerías de conexión a DB
 import java.sql.Connection;
+import java.sql.Date;
 //Para ejecutar consultas a DB
 import java.sql.PreparedStatement;
 //Para guardar el resultado de la consulta
@@ -18,7 +19,8 @@ import java.util.ArrayList;
 //Uso de listas
 import java.util.List;
 
-public class rolesDAO {
+
+public class employeesDAO {
     
     //Obtener conexión a DB
     Connection connection;
@@ -28,21 +30,28 @@ public class rolesDAO {
     ResultSet rs;
     
     //Declaración de variables de objeto
-    int rolId;
-    String rolName;
-    String rolDescription;
-    boolean rolActive;
+     int Employees_id;
+    Date Employees_startDate;
+    float Employees_salary;
+    String Employees_positionTitle;
+    String Employees_username;
+    String Employees_password;
+    Date Employees_stopDate;
+    boolean  Employees_active;
+    int user_id;
+    int speciality_id;
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from hl_Roles";
-    String selectByID = "Select * from hl_Roles where role_id = ";
-    String deleteByID = "Delete * From hl_Roles where role_id = ";
+    String selectALL = "Select * from hl_Employees";
+    String selectByID = "Select * from hl_Employees where employees_id = ";
+    String deleteByID = "Delete * From hl_Employees where employees_id = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Roles VALUES (?, ?, ?)";
+    String INSERT = "Insert into hl_Employees VALUES (?, ?, ?)"; 
+         
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
-   public boolean addRole(rolesModel objRol){
+   public boolean addEmployee(EmployeesModel objEmployee){
        //Variable de resultado que se retornará
        boolean res;
        
@@ -55,9 +64,13 @@ public class rolesDAO {
            PreparedStatement statement = connection.prepareStatement(sql);
            
            //ASignamos los valores a la consulta INSERT
-           statement.setString(1, objRol.getRolName());
-           statement.setString(2, objRol.getRolDescription());
-           statement.setBoolean(3, objRol.isRolActive());
+           statement.setDate(1, objEmployee.getEmployees_startDate());
+           statement.setFloat(2, objEmployee.getEmployees_salary());
+           statement.setString(3, objEmployee.getEmployees_positionTitle());
+           statement.setString(4, objEmployee.getEmployees_username());
+           statement.setString(5, objEmployee.getEmployees_password());
+           statement.setDate(6, objEmployee.getEmployees_stopDate());
+           statement.setBoolean(7, objEmployee.isEmployees_active()); 
            //Ejecutamos la consulta
            statement.execute();
            //Cerramos la conexión
@@ -74,19 +87,19 @@ public class rolesDAO {
    }
     
    
-   public void getRoles(){
+   public void getemployees(){
        
    }
    
-   public void getRole(){
+   public void getEmployee(){
        
    }
    
-   public void deleteRole(){
+   public void deleteEmployee(){
        
    }
    
-   public void updateRole(){
+   public void updateEmployee(){
        
    }
 }

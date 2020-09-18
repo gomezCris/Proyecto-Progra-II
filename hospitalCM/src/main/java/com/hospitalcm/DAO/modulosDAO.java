@@ -4,7 +4,7 @@ package com.hospitalcm.DAO;
 //importar el paquete de conexión a DB
 import com.hospitalcm.conexion.Conexion;
 //Importamos el model de Roles
-import com.hospitalcm.model.rolesModel;
+import com.hospitalcm.model.ModulosModel;
 //Librerías de conexión a DB
 import java.sql.Connection;
 //Para ejecutar consultas a DB
@@ -18,9 +18,9 @@ import java.util.ArrayList;
 //Uso de listas
 import java.util.List;
 
-public class rolesDAO {
-    
-    //Obtener conexión a DB
+public class modulosDAO {
+   
+     //Obtener conexión a DB
     Connection connection;
     Conexion con = new Conexion();
     
@@ -28,21 +28,20 @@ public class rolesDAO {
     ResultSet rs;
     
     //Declaración de variables de objeto
-    int rolId;
-    String rolName;
-    String rolDescription;
-    boolean rolActive;
+   String Module_name;
+   String Module_description;
+    
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from hl_Roles";
-    String selectByID = "Select * from hl_Roles where role_id = ";
-    String deleteByID = "Delete * From hl_Roles where role_id = ";
+    String selectALL = "Select * from hl_Modules";
+    String selectByID = "Select * from hl_Modules where module_id = ";
+    String deleteByID = "Delete * From hl_Modules where module_id = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Roles VALUES (?, ?, ?)";
+    String INSERT = "Insert into hl_Modules VALUES (?, ?, ?)";
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
-   public boolean addRole(rolesModel objRol){
+   public boolean addModule(ModulosModel objModule){
        //Variable de resultado que se retornará
        boolean res;
        
@@ -55,9 +54,10 @@ public class rolesDAO {
            PreparedStatement statement = connection.prepareStatement(sql);
            
            //ASignamos los valores a la consulta INSERT
-           statement.setString(1, objRol.getRolName());
-           statement.setString(2, objRol.getRolDescription());
-           statement.setBoolean(3, objRol.isRolActive());
+           
+           statement.setString(1, objModule.getModule_name());
+           statement.setString(2, objModule.getModule_description());
+         
            //Ejecutamos la consulta
            statement.execute();
            //Cerramos la conexión
@@ -74,19 +74,21 @@ public class rolesDAO {
    }
     
    
-   public void getRoles(){
+   public void getModules(){
        
    }
    
-   public void getRole(){
+   public void getModule(){
        
    }
    
-   public void deleteRole(){
+   public void deleteModule(){
        
    }
    
-   public void updateRole(){
+   public void updateModule(){
        
    }
+    
+    
 }

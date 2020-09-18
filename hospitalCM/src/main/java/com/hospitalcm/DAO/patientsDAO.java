@@ -4,9 +4,10 @@ package com.hospitalcm.DAO;
 //importar el paquete de conexión a DB
 import com.hospitalcm.conexion.Conexion;
 //Importamos el model de Roles
-import com.hospitalcm.model.rolesModel;
+import com.hospitalcm.model.Patients_Model;
 //Librerías de conexión a DB
 import java.sql.Connection;
+import java.sql.Date;
 //Para ejecutar consultas a DB
 import java.sql.PreparedStatement;
 //Para guardar el resultado de la consulta
@@ -18,9 +19,9 @@ import java.util.ArrayList;
 //Uso de listas
 import java.util.List;
 
-public class rolesDAO {
+public class patientsDAO {
     
-    //Obtener conexión a DB
+     //Obtener conexión a DB
     Connection connection;
     Conexion con = new Conexion();
     
@@ -28,21 +29,22 @@ public class rolesDAO {
     ResultSet rs;
     
     //Declaración de variables de objeto
-    int rolId;
-    String rolName;
-    String rolDescription;
-    boolean rolActive;
+   Date Patient_startdate; 
+   String Patient_username; 
+   String Patient_password; 
+   Date Patient_stopdate; 
+   boolean Patient_active; 
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from hl_Roles";
-    String selectByID = "Select * from hl_Roles where role_id = ";
-    String deleteByID = "Delete * From hl_Roles where role_id = ";
+    String selectALL = "Select * from hl_Patients";
+    String selectByID = "Select * from hl_Patients where patient_id = ";
+    String deleteByID = "Delete * From hl_Patients where patient_id = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Roles VALUES (?, ?, ?)";
+    String INSERT = "Insert into hl_Patients VALUES (?, ?, ?)";
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
-   public boolean addRole(rolesModel objRol){
+   public boolean addPatient(Patients_Model objPatient){
        //Variable de resultado que se retornará
        boolean res;
        
@@ -55,9 +57,12 @@ public class rolesDAO {
            PreparedStatement statement = connection.prepareStatement(sql);
            
            //ASignamos los valores a la consulta INSERT
-           statement.setString(1, objRol.getRolName());
-           statement.setString(2, objRol.getRolDescription());
-           statement.setBoolean(3, objRol.isRolActive());
+           statement.setDate(1, objPatient.getPatient_startdate());
+           statement.setString(2, objPatient.getPatient_username());
+           statement.setString(3, objPatient.getPatient_password());
+           statement.setDate(4, objPatient.getPatient_stopdate());
+           statement.setBoolean(5, objPatient.isPatient_active()); 
+           
            //Ejecutamos la consulta
            statement.execute();
            //Cerramos la conexión
@@ -74,19 +79,21 @@ public class rolesDAO {
    }
     
    
-   public void getRoles(){
+   public void getPatients(){
        
    }
    
-   public void getRole(){
+   public void getPatient(){
        
    }
    
-   public void deleteRole(){
+   public void deletePatient(){
        
    }
    
-   public void updateRole(){
+   public void updatePatient(){
        
    }
+    
+   
 }

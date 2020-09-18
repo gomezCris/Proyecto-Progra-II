@@ -1,8 +1,9 @@
 
 package com.hospitalcm.api;
+
 //Importación de clase
-import com.hospitalcm.DAO.rolesDAO;
-import com.hospitalcm.model.rolesModel;
+import com.hospitalcm.DAO.usersDAO;
+import com.hospitalcm.model.Users_Model;
 //Importación de librerías
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,23 +23,23 @@ import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType; 
 import javax.ws.rs.core.Response;
 
-@Path("/roles")
+@Path("/usuarios")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 
-public class rolesApi {
+public class usersApi {
     
-    //Instanciamos el objeto DAO para poder acceder a sus métodos
-    rolesDAO objRol = new rolesDAO();
+      //Instanciamos el objeto DAO para poder acceder a sus métodos
+    usersDAO objUse = new usersDAO();
     
     /*Método POST: Utilizado para insertar un rol en la tabla de
                    base de datos correspondiente
     */
     @POST
     
-    public Response addRol(rolesModel rol){
+    public Response addUse(Users_Model use){
         //Guarda el retorno de la operación del DAO
-        boolean result = objRol.addRole(rol);
+        boolean result = objUse.addUse(use);
         
         //VAlida que la creación fue exitosa
         if(result){
@@ -46,7 +47,7 @@ public class rolesApi {
             return Response.status(Response.Status.CREATED).build();
         }else{
             //Retorna una respuesta de tipo Json con un mensaje de error
-            return Response.status(400, "Ocurrió un error al registrar el rol").build();
+            return Response.status(400, "Ocurrió un error al registrar el usuario ").build();
         }
     }
     
