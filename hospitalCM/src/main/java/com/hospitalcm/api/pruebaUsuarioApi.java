@@ -88,5 +88,19 @@ public class pruebaUsuarioApi {
         }
     }
     
-    //Comentario de pruebas
+    /*Método UPDATE: Utilizado para ACTUALIZAR un usuario de pruebas en la tabla 
+                    de base de datos correspondiente
+    */
+    @PUT
+    @Path("/{id}")
+    public Response actualizarUsuario(pruebaApiUsuario registro) throws SQLException{
+        
+        boolean agregado = testAPI.agregarPruebaApiUsuario(registro);  
+        if (agregado){
+            return Response.status(200, "¡Registro actualizado exitosamente!").build();
+        }else{
+            return Response.status(404, "Ocurrió un error al registrar el usuario").build();
+        }
+        
+    }
 }

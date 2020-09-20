@@ -37,7 +37,7 @@ public class pruebaApiUsuarioDAO {
     String selectAll = "SELECT * FROM gearsgtc_hospital_java.pruebaApiUsuario";
     String selectByID = "SELECT * FROM gearsgtc_hospital_java.pruebaApiUsuario where id = ";
     String deleteByID = "DELETE FROM gearsgtc_hospital_java.pruebaApiUsuario where id = ";
-    String UPDATE;
+    String UPDATE = "UPDATE gearsgtc_hospital_java.pruebaApiUsuario SET id = (?), nombre = (?), apellido = (?), edad = (?), tel = (?) where id = ";
     String INSERT = "INSERT INTO pruebaApiUsuario VALUES(?, ?, ?, ?, ?)";
     
     //MÉTODOS CRUD
@@ -68,27 +68,6 @@ public class pruebaApiUsuarioDAO {
         
         return res;
     }
-    /*
-    //EDITAR
-    public boolean editarPruebaApiUsuario(pruebaApiUsuario objPrueba){
-        
-        return true;
-    }
-    
-    //ELIMINAR
-    public boolean eliminarPruebaApiUsuario(int id){
-        
-        return true;
-    }
-    
-    
-    
-    //OBTENER UN USUARIO
-    public pruebaApiUsuario obtenerPruebaApiUsuario(int id){
-        
-        return null;
-    }
-    */
     
     //OBTENER TODOS LOS USUARIOS
     public  List<pruebaApiUsuario> obtenerPruebaApiUsuarios(){
@@ -156,6 +135,7 @@ public class pruebaApiUsuarioDAO {
         return objUsuario;
     }
      
+     //ELIMINAR
      public boolean eliminarPruebaApiUsuario(int idBuscar){
         boolean res;
         
@@ -164,6 +144,36 @@ public class pruebaApiUsuarioDAO {
             connection = con.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             
+            statement.execute();
+            connection.close();
+            res = true;
+            
+        }catch(SQLException e){
+            e.getMessage();
+            res = false;
+           return res;
+        }
+        
+        return res;
+    }
+     
+     
+    //ACTUALIZAR
+     public boolean ACTUALIZARPruebaApiUsuario(pruebaApiUsuario objPrueba){
+        boolean res;
+        
+        try{
+            String sql = UPDATE;
+            connection = con.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            
+            statement.setInt(1, objPrueba.getId());
+            statement.setString(2, objPrueba.getNombre());
+            statement.setString(3, objPrueba.getApellido());
+            statement.setInt(4, objPrueba.getEdad());
+            statement.setString(5, objPrueba.getTel());
+            statement.setInt(6, objPrueba.getId());
             statement.execute();
             connection.close();
             res = true;
