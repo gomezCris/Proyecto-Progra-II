@@ -43,7 +43,6 @@ public class pruebaUsuarioApi {
         }else{
             return Response.status(404, "Ocurrió un error al registrar el usuario").build();
         }
-        
     }
     
     /*Método GET: Utilizado para seleccionar todos los usuarios en la tabla de 
