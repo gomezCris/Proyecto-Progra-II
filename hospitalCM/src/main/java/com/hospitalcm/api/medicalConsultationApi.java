@@ -95,7 +95,6 @@ public class medicalConsultationApi {
                     de base de datos correspondiente
     */
     @PUT
-    @Path("/{id}")
     public Response actualizarUsuario(medicalConsultationModel registro) throws SQLException{
         
         boolean agregado = objUse.actualizarMedicalConsultation(registro);  

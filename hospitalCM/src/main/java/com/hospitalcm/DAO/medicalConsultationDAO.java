@@ -40,11 +40,11 @@ public class medicalConsultationDAO {
     
     //Declaración de Consultas
     //Declaración de consultas a DB
-    String selectALL = "Select * from hl_MedicalConsultation";
-    String selectByID = "Select * from hl_MedicalConsultation = ";
-    String deleteByID = "Delete * From hl_MedicalConsultation = ";
-    String updateByID = "";
-    String INSERT = "Insert into hl_Users  VALUES (?, ?, ?, ?, ?, ?)";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_MedicalConsultation";
+    String selectByID = "Select * from gearsgtc_java_hospital.hl_MedicalConsultation WHERE mc_id = ";
+    String deleteByID = "Delete From gearsgtc_java_hospital.hl_MedicalConsultation WHERE mc_id = ";
+    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_MedicalConsultation SET mc_secretary_id = (?), mc_doctor_id = (?), patient_id = (?), mc_appointment = (?), mc_confirmation = (?) WHERE mc_id = ";
+    String INSERT = "Insert into hl_Users  VALUES (NULL, ?, ?, ?, ?, ?)";
     
     //MÉTODOS CRUD
     //AGREGAR
@@ -82,7 +82,7 @@ public class medicalConsultationDAO {
         List<medicalConsultationModel> listaMedicalConsultation = new ArrayList<medicalConsultationModel>();
         
         try{
-            String sql = selectAll;
+            String sql = selectALL;
             connection = con.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.execute();
@@ -98,7 +98,7 @@ public class medicalConsultationDAO {
                     patient_id = rs.getInt("patient_id");
                     appointment = rs.getDate("mc_appointment");
                     confirmation = rs.getBoolean("mc_confirmation");
-                    medicalConsultationModel = new medicalConsultationModel(id, secretary_id, doctor_id, patient_id, appointment, confirmation);
+                    medicalConsultationModel objUse = new medicalConsultationModel(id, secretary_id, doctor_id, patient_id, appointment, confirmation);
                     listaMedicalConsultation.add(objUse);
                 }
             }

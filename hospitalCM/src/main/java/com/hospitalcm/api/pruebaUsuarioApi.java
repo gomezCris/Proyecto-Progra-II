@@ -91,7 +91,6 @@ public class pruebaUsuarioApi {
                     de base de datos correspondiente
     */
     @PUT
-    @Path("/{id}")
     public Response actualizarUsuario(pruebaApiUsuario registro) throws SQLException{
         
         boolean agregado = testAPI.agregarPruebaApiUsuario(registro);  
