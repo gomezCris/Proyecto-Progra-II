@@ -36,7 +36,6 @@ public class especialistasApi {
                    base de datos correspondiente
     */
     @POST
-    
     public Response addSpeciality(EspecialistasModel Speciality){
         
         //Guarda el retorno de la operación del DAO

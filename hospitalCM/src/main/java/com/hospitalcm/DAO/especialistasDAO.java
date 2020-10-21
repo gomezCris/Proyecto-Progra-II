@@ -33,11 +33,11 @@ public class especialistasDAO {
     
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from hl_Specialitys";
-    String selectByID = "Select * from hl_Specialitys where speciality_id; = ";
-    String deleteByID = "Delete * From hl_Specialitys where speciality_id; = ";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Specialitys";
+    String selectByID = "Select * from gearsgtc_java_hospital.hl_Specialitys where speciality_id; = ";
+    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Specialitys where speciality_id; = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Specialitys VALUES (?, ?, ?)";
+    String INSERT = "Insert into hl_Specialitys VALUES (NULL, ?, ?)";
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
@@ -63,14 +63,12 @@ public class especialistasDAO {
            connection.close();
            //ASignamos la respuesta como true
            res = true;
+           return res;
    }catch(SQLException e){
            e.getMessage();
            res = false;
            return res;
        }
-       
-       return true;
-
 }
       
    public void getEspecialistas(){
