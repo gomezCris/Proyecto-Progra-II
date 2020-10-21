@@ -40,7 +40,7 @@ public class permisosDAO {
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Permissions where role_id = ";
     String deleteByID = "Delete From gearsgtc_java_hospital.hl_Permissions where role_id = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Permissions VALUES (?, ?, ?, ?, ?, ?)";
+    String INSERT = "Insert into earsgtc_java_hospital.hl_Permissions VALUES (?, ?, ?, ?, ?, ?)";
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
