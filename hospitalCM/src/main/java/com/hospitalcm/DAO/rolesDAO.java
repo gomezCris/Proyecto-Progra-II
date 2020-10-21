@@ -34,11 +34,11 @@ public class rolesDAO {
     boolean rolActive;
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from hl_Roles";
-    String selectByID = "Select * from hl_Roles where role_id = ";
-    String deleteByID = "Delete * From hl_Roles where role_id = ";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Roles";
+    String selectByID = "Select * from gearsgtc_java_hospital.hl_Roles where role_id = ";
+    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Roles where role_id = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Roles VALUES (?, ?, ?)";
+    String INSERT = "Insert into hl_Roles VALUES (NULL, ?, ?, ?, ?)";
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
@@ -58,19 +58,19 @@ public class rolesDAO {
            statement.setString(1, objRol.getRolName());
            statement.setString(2, objRol.getRolDescription());
            statement.setBoolean(3, objRol.isRolActive());
+           statement.setDate(4, objRol.getRole_register());
            //Ejecutamos la consulta
            statement.execute();
            //Cerramos la conexión
            connection.close();
            //ASignamos la respuesta como true
            res = true;
+           return res;
        }catch(SQLException e){
            e.getMessage();
            res = false;
            return res;
        }
-       
-       return true;
    }
     
    
