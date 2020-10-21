@@ -37,7 +37,7 @@ public class especialistasDAO {
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Specialitys where speciality_id; = ";
     String deleteByID = "Delete From gearsgtc_java_hospital.hl_Specialitys where speciality_id; = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Specialitys VALUES (NULL, ?, ?)";
+    String INSERT = "Insert into gearsgtc_java_hospital.hl_Specialitys VALUES (NULL, ?, ?)";
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
