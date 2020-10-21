@@ -36,11 +36,11 @@ public class permisosDAO {
     boolean Permission_delete;
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from hl_Permissions";
-    String selectByID = "Select * from hl_Permissions where module_id = ";
-    String deleteByID = "Delete * From hl_Permissions where module_id = ";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Permissions";
+    String selectByID = "Select * from gearsgtc_java_hospital.hl_Permissions where role_id = ";
+    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Permissions where role_id = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Permissions VALUES (?, ?, ?)";
+    String INSERT = "Insert into hl_Permissions VALUES (?, ?, ?, ?, ?, ?)";
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
@@ -57,23 +57,24 @@ public class permisosDAO {
            PreparedStatement statement = connection.prepareStatement(sql);
            
            //ASignamos los valores a la consulta INSERT
-           statement.setBoolean(1, objPermission.isPermission_create());
-           statement.setBoolean(2, objPermission.isPermission_read());
-           statement.setBoolean(3, objPermission.isPermission_update());
-           statement.setBoolean(4, objPermission.isPermission_delete());
+           statement.setInt(1, objPermission.getRole_id());
+           statement.setInt(2, objPermission.getModule_id());
+           statement.setBoolean(3, objPermission.isPermission_create());
+           statement.setBoolean(4, objPermission.isPermission_read());
+           statement.setBoolean(5, objPermission.isPermission_update());
+           statement.setBoolean(6, objPermission.isPermission_delete());
            //Ejecutamos la consulta
            statement.execute();
            //Cerramos la conexión
            connection.close();
            //ASignamos la respuesta como true
            res = true;
+           return res;
        }catch(SQLException e){
            e.getMessage();
            res = false;
            return res;
        }
-       
-       return true;
    }
     
    
