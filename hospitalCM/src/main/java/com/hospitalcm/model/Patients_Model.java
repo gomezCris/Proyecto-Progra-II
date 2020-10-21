@@ -18,13 +18,14 @@ public class Patients_Model {
    Date patient_stopdate; 
    boolean patient_active; 
    int user_id;
+   Date patient_register;
    
     //Creación de constructores
 
     public Patients_Model() {
     }
 
-    public Patients_Model(int patient_id, Date patient_startdate, String patient_username, String patient_password, Date patient_stopdate, boolean patient_active, int user_id) {
+    public Patients_Model(int patient_id, Date patient_startdate, String patient_username, String patient_password, Date patient_stopdate, boolean patient_active, int user_id, Date patient_register) {
         this.patient_id = patient_id;
         this.patient_startdate = patient_startdate;
         this.patient_username = patient_username;
@@ -32,6 +33,7 @@ public class Patients_Model {
         this.patient_stopdate = patient_stopdate;
         this.patient_active = patient_active;
         this.user_id = user_id;
+        this.patient_register = patient_register;
     }
 
     public int getUser_id() {
@@ -88,6 +90,14 @@ public class Patients_Model {
 
     public void setPatient_active(boolean patient_active) {
         this.patient_active = patient_active;
+    }
+
+    public Date getPatient_register() {
+        return patient_register;
+    }
+
+    public void setPatient_register(Date patient_register) {
+        this.patient_register = patient_register;
     }
    
    
