@@ -21,6 +21,8 @@ public class EmployeesModel {
     boolean  employees_active;
     int user_id;
     int speciality_id;
+    int role_id;
+    Date employees_register;
     
     
     //Creación de constructores
@@ -28,7 +30,7 @@ public class EmployeesModel {
     public EmployeesModel() {
     }
 
-    public EmployeesModel(int employees_id, Date employees_startDate, float employees_salary, String employees_positionTitle, String employees_username, String employees_password, Date employees_stopDate, boolean employees_active, int user_id, int speciality_id) {
+    public EmployeesModel(int employees_id, Date employees_startDate, float employees_salary, String employees_positionTitle, String employees_username, String employees_password, Date employees_stopDate, boolean employees_active, int user_id, int speciality_id, int role_id, Date employees_register) {
         this.employees_id = employees_id;
         this.employees_startDate = employees_startDate;
         this.employees_salary = employees_salary;
@@ -39,6 +41,8 @@ public class EmployeesModel {
         this.employees_active = employees_active;
         this.user_id = user_id;
         this.speciality_id = speciality_id;
+        this.role_id = role_id;
+        this.employees_register = employees_register;
     }
 
     public int getSpeciality_id() {
@@ -119,6 +123,22 @@ public class EmployeesModel {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public int getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(int role_id) {
+        this.role_id = role_id;
+    }
+
+    public Date getEmployees_register() {
+        return employees_register;
+    }
+
+    public void setEmployees_register(Date employees_register) {
+        this.employees_register = employees_register;
     }
 
     

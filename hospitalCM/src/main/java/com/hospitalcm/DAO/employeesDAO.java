@@ -42,11 +42,11 @@ public class employeesDAO {
     int speciality_id;
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from hl_Employees";
-    String selectByID = "Select * from hl_Employees where employees_id = ";
-    String deleteByID = "Delete * From hl_Employees where employees_id = ";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Employees";
+    String selectByID = "Select * from gearsgtc_java_hospital.hl_Employees where employees_id = ";
+    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Employees where employees_id = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Employees VALUES (?, ?, ?)"; 
+    String INSERT = "Insert into hl_Employees VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
          
     
     //Creación de métodos
@@ -71,19 +71,23 @@ public class employeesDAO {
            statement.setString(5, objEmployee.getEmployees_password());
            statement.setDate(6, objEmployee.getEmployees_stopDate());
            statement.setBoolean(7, objEmployee.isEmployees_active()); 
+           statement.setInt(8, objEmployee.getUser_id());
+           statement.setInt(9, objEmployee.getSpeciality_id());
+           statement.setInt(10, objEmployee.getRole_id());
+           statement.setDate(11, objEmployee.getEmployees_register());
            //Ejecutamos la consulta
            statement.execute();
            //Cerramos la conexión
            connection.close();
            //ASignamos la respuesta como true
            res = true;
+           return res;
        }catch(SQLException e){
            e.getMessage();
            res = false;
            return res;
        }
        
-       return true;
    }
     
    
