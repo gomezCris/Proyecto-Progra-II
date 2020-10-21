@@ -38,11 +38,11 @@ public class usersDAO {
     boolean User_active; 
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from hl_Users";
-    String selectByID = "Select * from hl_Users where user_id = ";
-    String deleteByID = "Delete * From hl_Users where user_id = ";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Users";
+    String selectByID = "Select * from gearsgtc_java_hospital.hl_Users where user_id = ";
+    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Users where user_id = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Users  VALUES (?, ?, ?)";
+    String INSERT = "Insert into gearsgtc_java_hospital.hl_Users  VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
@@ -66,19 +66,19 @@ public class usersDAO {
            statement.setDate(5, objUse.getUser_birthdate());
            statement.setString(6, objUse.getUser_address());
            statement.setBoolean(7, objUse.isUser_active());
+           statement.setDate(8, objUse.getUser_register());
            //Ejecutamos la consulta
            statement.execute();
            //Cerramos la conexión
            connection.close();
            //ASignamos la respuesta como true
            res = true;
+           return res;
        }catch(SQLException e){
            e.getMessage();
            res = false;
            return res;
        }
-       
-       return true;
    }
     
    
