@@ -38,7 +38,7 @@ public class rolesDAO {
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Roles where role_id = ";
     String deleteByID = "Delete From gearsgtc_java_hospital.hl_Roles where role_id = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Roles VALUES (NULL, ?, ?, ?, ?)";
+    String INSERT = "Insert into earsgtc_java_hospital.hl_Roles VALUES (NULL, ?, ?, ?, ?)";
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
