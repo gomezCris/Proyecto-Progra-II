@@ -46,7 +46,7 @@ public class employeesDAO {
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Employees where employees_id = ";
     String deleteByID = "Delete From gearsgtc_java_hospital.hl_Employees where employees_id = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Employees VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+    String INSERT = "Insert into gearsgtc_java_hospital.hl_Employees VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
          
     
     //Creación de métodos
