@@ -57,12 +57,11 @@ public class medicalConsultationDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
             
             
-            statement.setInt(1, objUse.getMc_id());
-            statement.setInt(2, objUse.getMc_secretary_id());
-            statement.setInt(3, objUse.getMc_doctor_id());
-            statement.setInt(4, objUse.getPatient_id());
-            statement.setDate(5, objUse.getMc_appointment());
-            statement.setBoolean(6, objUse.isMc_confirmation());
+            statement.setInt(1, objUse.getMc_secretary_id());
+            statement.setInt(2, objUse.getMc_doctor_id());
+            statement.setInt(3, objUse.getPatient_id());
+            statement.setDate(4, objUse.getMc_appointment());
+            statement.setBoolean(5, objUse.isMc_confirmation());
             statement.execute();
             connection.close();
             res = true;
@@ -177,12 +176,12 @@ public class medicalConsultationDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
             
             
-            statement.setInt(1, objUse.getMc_id());
-            statement.setInt(2, objUse.getMc_secretary_id());
-            statement.setInt(3, objUse.getMc_doctor_id());
-            statement.setInt(4, objUse.getPatient_id());
-            statement.setDate(5, objUse.getMc_appointment());
-            statement.setBoolean(6, objUse.isMc_confirmation());
+            statement.setInt(1, objUse.getMc_secretary_id());
+            statement.setInt(2, objUse.getMc_doctor_id());
+            statement.setInt(3, objUse.getPatient_id());
+            statement.setDate(4, objUse.getMc_appointment());
+            statement.setBoolean(5, objUse.isMc_confirmation());
+            statement.setInt(6, objUse.getMc_id());
             statement.execute();
             connection.close();
             res = true;
