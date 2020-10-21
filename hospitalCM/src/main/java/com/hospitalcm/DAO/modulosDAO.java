@@ -33,11 +33,11 @@ public class modulosDAO {
     
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from hl_Modules";
-    String selectByID = "Select * from hl_Modules where module_id = ";
-    String deleteByID = "Delete * From hl_Modules where module_id = ";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Modules";
+    String selectByID = "Select * from gearsgtc_java_hospital.hl_Modules where module_id = ";
+    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Modules where module_id = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Modules VALUES (?, ?, ?)";
+    String INSERT = "Insert into gearsgtc_java_hospital.hl_Modules VALUES (NULL, ?, ?)";
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
@@ -64,13 +64,12 @@ public class modulosDAO {
            connection.close();
            //ASignamos la respuesta como true
            res = true;
+           return res;
        }catch(SQLException e){
            e.getMessage();
            res = false;
            return res;
        }
-       
-       return true;
    }
     
    
