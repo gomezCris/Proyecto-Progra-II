@@ -1,5 +1,7 @@
 package com.hospitalcm.model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Liz 
@@ -7,29 +9,33 @@ package com.hospitalcm.model;
 
 public class rolesModel {
     //Declaración de variables
-    int rolId;
+    int role_id;
     String rolName;
     String rolDescription;
     boolean rolActive;
+    Date role_register;
     
     //Creación de constructores
     public rolesModel() {
     }
 
-    public rolesModel(int rolId, String rolName, String rolDescription, boolean rolActive) {
-        this.rolId = rolId;
+    public rolesModel(int role_id, String rolName, String rolDescription, boolean rolActive, Date role_register) {
+        this.role_id = role_id;
         this.rolName = rolName;
         this.rolDescription = rolDescription;
         this.rolActive = rolActive;
+        this.role_register = role_register;
     }
 
-    public int getRolId() {
-        return rolId;
+    public int getRole_id() {
+        return role_id;
     }
 
-    public void setRolId(int rolId) {
-        this.rolId = rolId;
+    public void setRole_id(int role_id) {
+        this.role_id = role_id;
     }
+
+
 
     public String getRolName() {
         return this.rolName;
@@ -53,6 +59,14 @@ public class rolesModel {
 
     public void setRolActive(boolean rolActive) {
         this.rolActive = rolActive;
+    }
+
+    public Date getRole_register() {
+        return role_register;
+    }
+
+    public void setRole_register(Date role_register) {
+        this.role_register = role_register;
     }
     
     
