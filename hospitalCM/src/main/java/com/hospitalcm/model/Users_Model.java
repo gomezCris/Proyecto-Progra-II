@@ -19,13 +19,14 @@ public class Users_Model {
     Date user_birthdate; 
     String user_address; 
     boolean user_active; 
+    Date user_register;
     
   //Creación de constructores
 
     public Users_Model() {
     }
 
-    public Users_Model(int user_id, String user_firstname, String user_lastname, String user_email, String user_phonenumber, Date user_birthdate, String user_address, boolean user_active) {
+    public Users_Model(int user_id, String user_firstname, String user_lastname, String user_email, String user_phonenumber, Date user_birthdate, String user_address, boolean user_active, Date user_register) {
         this.user_id = user_id;
         this.user_firstname = user_firstname;
         this.user_lastname = user_lastname;
@@ -34,6 +35,7 @@ public class Users_Model {
         this.user_birthdate = user_birthdate;
         this.user_address = user_address;
         this.user_active = user_active;
+        this.user_register = user_register;
     }
 
     public int getUser_id() {
@@ -99,7 +101,13 @@ public class Users_Model {
     public void setUser_active(boolean user_active) {
         this.user_active = user_active;
     }
-    
-    
+
+    public Date getUser_register() {
+        return user_register;
+    }
+
+    public void setUser_register(Date user_register) {
+        this.user_register = user_register;
+    }
     
 }
