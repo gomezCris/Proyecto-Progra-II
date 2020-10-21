@@ -36,11 +36,11 @@ public class patientsDAO {
    boolean Patient_active; 
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from hl_Patients";
-    String selectByID = "Select * from hl_Patients where patient_id = ";
-    String deleteByID = "Delete * From hl_Patients where patient_id = ";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Patients";
+    String selectByID = "Select * from gearsgtc_java_hospital.hl_Patients where patient_id = ";
+    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Patients where patient_id = ";
     String updateByID = "";
-    String INSERT = "Insert into hl_Patients VALUES (?, ?, ?)";
+    String INSERT = "Insert into gearsgtc_java_hospital.hl_Patients VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
@@ -61,7 +61,9 @@ public class patientsDAO {
            statement.setString(2, objPatient.getPatient_username());
            statement.setString(3, objPatient.getPatient_password());
            statement.setDate(4, objPatient.getPatient_stopdate());
-           statement.setBoolean(5, objPatient.isPatient_active()); 
+           statement.setBoolean(5, objPatient.isPatient_active());
+           statement.setInt(6, objPatient.getUser_id());
+           statement.setDate(7, objPatient.getPatient_register());
            
            //Ejecutamos la consulta
            statement.execute();
@@ -69,13 +71,12 @@ public class patientsDAO {
            connection.close();
            //ASignamos la respuesta como true
            res = true;
+           return res;
        }catch(SQLException e){
            e.getMessage();
            res = false;
            return res;
        }
-       
-       return true;
    }
     
    
