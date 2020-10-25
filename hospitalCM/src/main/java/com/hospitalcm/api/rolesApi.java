@@ -50,4 +50,10 @@ public class rolesApi {
         }
     }
     
+    @GET
+    public List<rolesModel> getRoles(){
+         List<rolesModel> listaRoles = new ArrayList<rolesModel>();
+         listaRoles = objRol.getRoles();
+         return listaRoles;
+    }
 }

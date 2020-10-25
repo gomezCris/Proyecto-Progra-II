@@ -27,13 +27,16 @@ public class patientsDAO {
     
     //Variables de resultado de consulta
     ResultSet rs;
-    
+    boolean res;
     //Declaración de variables de objeto
+   int patient_id; 
    Date Patient_startdate; 
    String Patient_username; 
    String Patient_password; 
    Date Patient_stopdate; 
    boolean Patient_active; 
+   int user_id;
+   Date patient_register; 
     
     //Declaración de consultas a DB
     String selectALL = "Select * from gearsgtc_java_hospital.hl_Patients";
@@ -80,8 +83,39 @@ public class patientsDAO {
    }
     
    
-   public void getPatients(){
+     public List<Patients_Model> getPatients(){
+       //Creación de la lista que se devolverá como respuesta
+       List<Patients_Model> listaPatients = new ArrayList<Patients_Model>();
        
+       try{
+           connection = con.getConnection();
+           PreparedStatement statement = connection.prepareStatement(selectALL);
+           statement.execute();
+           rs = statement.executeQuery();
+           
+           res = true;
+           if(res){
+               while(rs.next()){
+                   patient_id = rs.getInt("patient_id");
+                   Patient_startdate = rs.getDate("patient_startdate");
+                   Patient_username = rs.getString("patient_username");
+                   Patient_password = rs.getString("patient_password");
+                   Patient_stopdate = rs.getDate("patient_stopdate");
+                   Patient_active = rs.getBoolean("patient_active");
+                   user_id = rs.getInt("user_id");
+                   patient_register = rs.getDate("patient_register");
+                           
+                   Patients_Model objPatients = new Patients_Model( patient_id,  Patient_startdate, Patient_username,  Patient_password ,  Patient_stopdate,Patient_active, user_id, patient_register);
+                   
+                   listaPatients.add(objPatients);
+               }
+           }
+           
+           connection.close();
+           return listaPatients;
+       }catch(SQLException e){
+           return listaPatients;
+       }
    }
    
    public void getPatient(){

@@ -25,9 +25,12 @@ public class modulosDAO {
     Conexion con = new Conexion();
     
     //Variables de resultado de consulta
-    ResultSet rs;
+    ResultSet rs;  
+    boolean res;
+    
     
     //Declaración de variables de objeto
+   int Modulo_ID; 
    String Module_name;
    String Module_description;
     
@@ -73,8 +76,34 @@ public class modulosDAO {
    }
     
    
-   public void getModules(){
+    public List<ModulosModel> getModulos(){
+       //Creación de la lista que se devolverá como respuesta
+       List<ModulosModel> listaModulos = new ArrayList<ModulosModel>();
        
+       try{
+           connection = con.getConnection();
+           PreparedStatement statement = connection.prepareStatement(selectALL);
+           statement.execute();
+           rs = statement.executeQuery();
+           
+           res = true;
+           if(res){
+               while(rs.next()){
+                   Modulo_ID = rs.getInt("module_id");
+                   Module_name = rs.getString("module_name");
+                   Module_description = rs.getString("module_description");
+                   
+                   ModulosModel objModule = new ModulosModel(Modulo_ID, Module_name, Module_description);
+                   
+                   listaModulos.add(objModule);
+               }
+           }
+           
+           connection.close();
+           return listaModulos;
+       }catch(SQLException e){
+           return listaModulos;
+       }
    }
    
    public void getModule(){

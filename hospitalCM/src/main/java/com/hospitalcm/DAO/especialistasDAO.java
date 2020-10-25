@@ -25,9 +25,9 @@ public class especialistasDAO {
     
     //Variables de resultado de consulta
     ResultSet rs;
-    
+    boolean res; 
     //Declaración de variables de objeto
-
+    int Speciality_id; 
     String Speciality_name;
     String speciality_description;
     
@@ -71,8 +71,36 @@ public class especialistasDAO {
        }
 }
       
-   public void getEspecialistas(){
+   public List<EspecialistasModel> getEspecialistas(){
+       //Creación de la lista que se devolverá como respuesta
+       List<EspecialistasModel> listaEspecialistas = new ArrayList<EspecialistasModel>();
        
+       try{
+           connection = con.getConnection();
+           PreparedStatement statement = connection.prepareStatement(selectALL);
+           statement.execute();
+           rs = statement.executeQuery();
+           
+           res = true;
+           if(res){
+               while(rs.next()){
+                   
+                   Speciality_id = rs.getInt("speciality_id"); 
+                   Speciality_name = rs.getString("speciality_name");
+                   speciality_description = rs.getString("speciality_description");
+                   
+                   
+                   EspecialistasModel objSpeciality = new EspecialistasModel(Speciality_id, Speciality_name ,speciality_description);
+                   
+                   listaEspecialistas.add(objSpeciality);
+               }
+           }
+           
+           connection.close();
+           return listaEspecialistas;
+       }catch(SQLException e){
+           return listaEspecialistas;
+       }
    }
    
    public void getSpeciality(){

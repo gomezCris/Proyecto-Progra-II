@@ -51,4 +51,10 @@ public class permisosApi {
         }
     }
     
+     @GET
+    public List<PermisosModel> getPermissions(){
+         List<PermisosModel> listaPermisos = new ArrayList<PermisosModel>();
+         listaPermisos = objPermission.getPermissions();
+         return listaPermisos;
+    }
 }

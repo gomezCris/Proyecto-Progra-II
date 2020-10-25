@@ -52,5 +52,11 @@ public class patientsApi {
             return Response.status(400, "Ocurrió un error al registrar el paciente").build();
         }
     }
+    @GET
+    public List<Patients_Model> getPatients(){
+         List<Patients_Model> listaPatients = new ArrayList<Patients_Model>();
+         listaPatients  = objPatients.getPatients();
+         return listaPatients;
+    }
     
 }

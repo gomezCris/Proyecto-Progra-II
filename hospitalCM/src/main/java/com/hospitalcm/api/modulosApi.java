@@ -51,4 +51,11 @@ public class modulosApi {
             return Response.status(400, "Ocurrió un error al registrar el modulo").build();
         }
     }
+    
+    @GET
+    public List<ModulosModel> getModulos(){
+         List<ModulosModel> listaModulos = new ArrayList<ModulosModel>();
+         listaModulos = objModule.getModulos();
+         return listaModulos;
+    }
 }

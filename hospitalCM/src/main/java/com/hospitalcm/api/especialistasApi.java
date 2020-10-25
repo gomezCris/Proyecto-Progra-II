@@ -51,4 +51,10 @@ public class especialistasApi {
         }
     }
     
+     @GET
+    public List<EspecialistasModel> getEspecialistas(){
+         List<EspecialistasModel> listaEspecialistas = new ArrayList<EspecialistasModel>();
+         listaEspecialistas = objSpeciality.getEspecialistas();
+         return listaEspecialistas;
+    }
 }
