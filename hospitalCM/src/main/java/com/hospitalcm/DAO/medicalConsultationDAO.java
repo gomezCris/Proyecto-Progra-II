@@ -48,7 +48,7 @@ public class medicalConsultationDAO {
     
     //MÉTODOS CRUD
     //AGREGAR
-    public boolean agregarMedicalConsultation(medicalConsultationModel objUse){
+    public boolean agregarDAO(medicalConsultationModel objUse){
         boolean res;
         
         try{
@@ -76,9 +76,9 @@ public class medicalConsultationDAO {
     }
     
     //OBTENER TODOS LAS CONSULTAS MEDICAS
-    public  List<medicalConsultationModel> obtenerMedicalConsultations(){
+    public  List<medicalConsultationModel> obtenerTodosDAO(){
         boolean res;
-        List<medicalConsultationModel> listaMedicalConsultation = new ArrayList<medicalConsultationModel>();
+        List<medicalConsultationModel> listaTodos = new ArrayList<medicalConsultationModel>();
         
         try{
             String sql = selectALL;
@@ -98,20 +98,20 @@ public class medicalConsultationDAO {
                     appointment = rs.getDate("mc_appointment");
                     confirmation = rs.getBoolean("mc_confirmation");
                     medicalConsultationModel objUse = new medicalConsultationModel(id, secretary_id, doctor_id, patient_id, appointment, confirmation);
-                    listaMedicalConsultation.add(objUse);
+                    listaTodos.add(objUse);
                 }
             }
             connection.close();
         }catch(SQLException e){
             e.getMessage();
-           return listaMedicalConsultation;
+           return listaTodos;
         }
         
-        return listaMedicalConsultation;
+        return listaTodos;
     }
     
-    //OBTENER UN USUARIO
-     public  medicalConsultationModel obtenerMedicalConsultation(int idBuscar){
+    //OBTENER UNA CONSULTA MEDICA
+     public  medicalConsultationModel obtenerDAO(int idBuscar){
         boolean res;
         medicalConsultationModel objUse;
         
@@ -144,7 +144,7 @@ public class medicalConsultationDAO {
     }
      
      //ELIMINAR
-     public boolean eliminarMedicalCosultation(int idBuscar){
+     public boolean eliminarDAO(int idBuscar){
         boolean res;
         
         try{
@@ -167,7 +167,7 @@ public class medicalConsultationDAO {
      
      
     //ACTUALIZAR
-     public boolean actualizarMedicalConsultation(medicalConsultationModel objUse){
+     public boolean actualizarDAO(medicalConsultationModel objUse){
         boolean res;
         
         try{

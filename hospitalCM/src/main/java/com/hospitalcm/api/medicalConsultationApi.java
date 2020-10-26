@@ -39,13 +39,13 @@ public class medicalConsultationApi {
                    base de datos correspondiente
     */
     @POST
-    public Response agregarUsuario(medicalConsultationModel registro) throws SQLException{
+    public Response agregar(medicalConsultationModel registro) throws SQLException{
         
-        boolean agregado = objUse.agregarMedicalConsultation(registro);  
+        boolean agregado = objUse.agregarDAO(registro);  
         if (agregado){
             return Response.status(Response.Status.CREATED).build();
         }else{
-            return Response.status(404, "Ocurrió un error al registrar la consulta medica").build();
+            return Response.status(404, "Ocurrió un error al insertar el registro").build();
         }
     }
     
@@ -53,11 +53,11 @@ public class medicalConsultationApi {
                 base de datos correspondiente
     */
     @GET
-    public List<medicalConsultationModel> getTodasLasConsultas(){
-        List<medicalConsultationModel> listamedicalConsultationModels = new ArrayList<medicalConsultationModel>();
-        listamedicalConsultationModels = objUse.obtenerMedicalConsultations();
+    public List<medicalConsultationModel> todos(){
+        List<medicalConsultationModel> listaTodos = new ArrayList<medicalConsultationModel>();
+        listaTodos = objUse.obtenerTodosDAO();
         
-        return listamedicalConsultationModels;
+        return listaTodos;
     }
     
     /*Método GET: Utilizado para seleccionar  un usuario de pruebas en la tabla 
@@ -65,12 +65,12 @@ public class medicalConsultationApi {
     */
     @GET
     @Path("/{id}")
-    public medicalConsultationModel getPruebaUsuario(@PathParam("id") int id){
-        medicalConsultationModel objUsuario = new medicalConsultationModel();
-        objUsuario = objUse.obtenerMedicalConsultation(id);
+    public medicalConsultationModel registro(@PathParam("id") int id){
+        medicalConsultationModel objRegistro = new medicalConsultationModel();
+        objRegistro = objUse.obtenerDAO(id);
         
-        if(objUsuario != null){
-            return objUsuario;
+        if(objRegistro != null){
+            return objRegistro;
         }else{
             return null;
         }
@@ -81,13 +81,13 @@ public class medicalConsultationApi {
     */
     @DELETE
     @Path("/{id}")
-    public Response eliminarPruebaUsuario(@PathParam("id") int id){
-        boolean eliminado = objUse.eliminarMedicalCosultation(id);
+    public Response eliminar(@PathParam("id") int id){
+        boolean eliminado = objUse.eliminarDAO(id);
         
         if(eliminado){
-            return Response.status(200, "¡Usuario Eliminado Correctamente!").build();
+            return Response.status(200, "¡Eliminado Correctamente!").build();
         }else{
-            return Response.status(500, "Ocurrió un error al tratar de eliminar el usuario, intente más tarde").build();   
+            return Response.status(500, "Ocurrió un error al tratar de eliminar el registro, intente más tarde").build();   
         }
     }
     
@@ -95,13 +95,13 @@ public class medicalConsultationApi {
                     de base de datos correspondiente
     */
     @PUT
-    public Response actualizarUsuario(medicalConsultationModel registro) throws SQLException{
+    public Response actualizar(medicalConsultationModel registro) throws SQLException{
         
-        boolean agregado = objUse.actualizarMedicalConsultation(registro);  
+        boolean agregado = objUse.actualizarDAO(registro);  
         if (agregado){
             return Response.status(200, "¡Registro actualizado exitosamente!").build();
         }else{
-            return Response.status(404, "Ocurrió un error al registrar el usuario").build();
+            return Response.status(404, "Ocurrió un error al actualizar el registro").build();
         }
         
     }
