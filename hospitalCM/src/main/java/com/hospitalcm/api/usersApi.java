@@ -51,4 +51,11 @@ public class usersApi {
         }
     }
     
+    @GET
+    public List<Users_Model> getUsers(){
+         List<Users_Model> listaUsers = new ArrayList<Users_Model>();
+         listaUsers = objUse.getUsers();
+         return listaUsers;
+    }
+    
 }

@@ -7,6 +7,7 @@ import com.hospitalcm.conexion.Conexion;
 import com.hospitalcm.model.rolesModel;
 //Librerías de conexión a DB
 import java.sql.Connection;
+import java.sql.Date;
 //Para ejecutar consultas a DB
 import java.sql.PreparedStatement;
 //Para guardar el resultado de la consulta
@@ -26,12 +27,14 @@ public class rolesDAO {
     
     //Variables de resultado de consulta
     ResultSet rs;
+    boolean res;
     
     //Declaración de variables de objeto
     int rolId;
     String rolName;
     String rolDescription;
     boolean rolActive;
+    Date role_register;
     
     //Declaración de consultas a DB
     String selectALL = "Select * from gearsgtc_java_hospital.hl_Roles";
@@ -41,10 +44,8 @@ public class rolesDAO {
     String INSERT = "Insert into earsgtc_java_hospital.hl_Roles VALUES (NULL, ?, ?, ?, ?)";
     
     //Creación de métodos
-    //ADD/AGREGAR, Recibe un objeto de tipo ROL
+    //ADD/AGREGAR, Recibe un objeto de tipo ROLl
    public boolean addRole(rolesModel objRol){
-       //Variable de resultado que se retornará
-       boolean res;
        
        try{
            //ASignamos la consulta a la variable sql
@@ -74,8 +75,36 @@ public class rolesDAO {
    }
     
    
-   public void getRoles(){
+   public List<rolesModel> getRoles(){
+       //Creación de la lista que se devolverá como respuesta
+       List<rolesModel> listaRoles = new ArrayList<rolesModel>();
        
+       try{
+           connection = con.getConnection();
+           PreparedStatement statement = connection.prepareStatement(selectALL);
+           statement.execute();
+           rs = statement.executeQuery();
+           
+           res = true;
+           if(res){
+               while(rs.next()){
+                   rolId = rs.getInt("role_id");
+                   rolName = rs.getString("role_name");
+                   rolDescription = rs.getString("role_description");
+                   rolActive = rs.getBoolean("role_active");
+                   role_register = rs.getDate("role_register");
+                   
+                   rolesModel objRole = new rolesModel(rolId, rolName, rolDescription, rolActive, role_register);
+                   
+                   listaRoles.add(objRole);
+               }
+           }
+           
+           connection.close();
+           return listaRoles;
+       }catch(SQLException e){
+           return listaRoles;
+       }
    }
    
    public void getRole(){

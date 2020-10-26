@@ -27,8 +27,10 @@ public class usersDAO {
     
     //Variables de resultado de consulta
     ResultSet rs;
-    
+    boolean res;
     //Declaración de variables de objeto
+    int user_id; 
+    Date user_register; 
     String User_firstname; 
     String User_lastname; 
     String User_email; 
@@ -82,8 +84,40 @@ public class usersDAO {
    }
     
    
-   public void getUsers(){
+    public List<Users_Model> getUsers(){
+       //Creación de la lista que se devolverá como respuesta
+       List<Users_Model> listaUsers = new ArrayList<Users_Model>();
        
+       try{
+           connection = con.getConnection();
+           PreparedStatement statement = connection.prepareStatement(selectALL);
+           statement.execute();
+           rs = statement.executeQuery();
+           
+           res = true;
+           if(res){
+               while(rs.next()){
+                   user_id = rs.getInt("user_id");
+                   User_firstname = rs.getString("user_firstname");
+                   User_lastname = rs.getString("user_lastname");
+                   User_email = rs.getString("User_email");
+                   User_phonenumber = rs.getString("user_phonenumber");
+                   User_birthdate = rs.getDate("user_birthdate");
+                   User_address = rs.getString("user_address");
+                   User_active = rs.getBoolean("user_active");
+                   user_register = rs.getDate("user_register");
+                 
+                   Users_Model objUse = new Users_Model(user_id, User_firstname,  User_lastname,  User_email, User_phonenumber, User_birthdate,User_address,User_active,user_register);
+                   
+                   listaUsers.add(objUse);
+               }
+           }
+           
+           connection.close();
+           return listaUsers;
+       }catch(SQLException e){
+           return listaUsers;
+       }
    }
    
    public void getUse(){

@@ -45,6 +45,7 @@ public class EmployeesModel {
         this.employees_register = employees_register;
     }
 
+
     public int getSpeciality_id() {
         return this.speciality_id;
     }

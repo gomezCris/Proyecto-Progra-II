@@ -52,5 +52,10 @@ public class employeesApi {
             return Response.status(400, "Ocurrió un error al registrar el empleado").build();
         }
     }
-    
+      @GET
+    public List<EmployeesModel> getEmployees(){
+         List<EmployeesModel> listaEmployees = new ArrayList<EmployeesModel>();
+         listaEmployees = objEmployee.getEmployees();
+         return listaEmployees;
+    }
 }

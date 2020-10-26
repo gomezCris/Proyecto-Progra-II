@@ -5,6 +5,7 @@ package com.hospitalcm.DAO;
 import com.hospitalcm.conexion.Conexion;
 //Importamos el model de Roles
 import com.hospitalcm.model.EmployeesModel;
+import com.hospitalcm.model.rolesModel;
 //Librerías de conexión a DB
 import java.sql.Connection;
 import java.sql.Date;
@@ -28,6 +29,7 @@ public class employeesDAO {
     
     //Variables de resultado de consulta
     ResultSet rs;
+    boolean res; 
     
     //Declaración de variables de objeto
      int Employees_id;
@@ -40,6 +42,8 @@ public class employeesDAO {
     boolean  Employees_active;
     int user_id;
     int speciality_id;
+    int role_id;
+    Date employees_register;
     
     //Declaración de consultas a DB
     String selectALL = "Select * from gearsgtc_java_hospital.hl_Employees";
@@ -91,8 +95,43 @@ public class employeesDAO {
    }
     
    
-   public void getemployees(){
+  public List<EmployeesModel> getEmployees(){
+       //Creación de la lista que se devolverá como respuesta
+       List<EmployeesModel> listaEmployees = new ArrayList<EmployeesModel>();
        
+       try{
+           connection = con.getConnection();
+           PreparedStatement statement = connection.prepareStatement(selectALL);
+           statement.execute();
+           rs = statement.executeQuery();
+           
+           res = true;
+           if(res){
+               while(rs.next()){
+                   Employees_id = rs.getInt("employees_id");
+                   Employees_startDate = rs.getDate("employees_startdate");
+                   Employees_salary = rs.getFloat("employees_salary");
+                   Employees_positionTitle = rs.getString("employees_positionTitle");
+                   Employees_username = rs.getString("employees_username"); 
+                   Employees_password = rs.getString("employees_password");
+                   Employees_stopDate = rs.getDate("employees_stopdate");
+                   Employees_active = rs.getBoolean("employees_active");
+                   user_id = rs.getInt("user_id");
+                   speciality_id = rs.getInt("user_id");
+                   role_id = rs.getInt("role_id");
+                   employees_register = rs.getDate("employees_register");
+                   
+                   EmployeesModel objEmployee = new EmployeesModel(Employees_id, Employees_startDate, Employees_salary, Employees_positionTitle, Employees_username, Employees_password, Employees_stopDate,Employees_active,user_id, speciality_id, role_id, employees_register);
+                   
+                   listaEmployees.add(objEmployee);
+               }
+           }
+           
+           connection.close();
+           return listaEmployees;
+       }catch(SQLException e){
+           return listaEmployees;
+       }
    }
    
    public void getEmployee(){

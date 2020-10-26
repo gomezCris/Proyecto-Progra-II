@@ -28,8 +28,10 @@ public class permisosDAO {
     
     //Variables de resultado de consulta
     ResultSet rs;
-    
+     boolean res;
     //Declaración de variables de objeto
+    int rolId; 
+    int ModuleId; 
     boolean Permission_create;
     boolean Permission_read;
     boolean Permission_update;
@@ -78,8 +80,37 @@ public class permisosDAO {
    }
     
    
-   public void getPermissions(){
+   public List<PermisosModel> getPermissions(){
+       //Creación de la lista que se devolverá como respuesta
+       List<PermisosModel> listaPermisos = new ArrayList<PermisosModel>();
        
+       try{
+           connection = con.getConnection();
+           PreparedStatement statement = connection.prepareStatement(selectALL);
+           statement.execute();
+           rs = statement.executeQuery();
+           
+           res = true;
+           if(res){
+               while(rs.next()){
+                   rolId = rs.getInt("role_id");
+                   ModuleId = rs.getInt("module_id");
+                   Permission_create = rs.getBoolean("permission_create");
+                   Permission_read = rs.getBoolean("permission_read");
+                   Permission_update = rs.getBoolean("permission_update");
+                   Permission_delete = rs.getBoolean("permission_delete");
+                   
+                   PermisosModel objPermissions = new PermisosModel(rolId, ModuleId, Permission_create, Permission_read, Permission_update, Permission_delete);
+                   
+                   listaPermisos.add(objPermissions);
+               }
+           }
+           
+           connection.close();
+           return listaPermisos;
+       }catch(SQLException e){
+           return listaPermisos;
+       }
    }
    
    public void getPermission(){
