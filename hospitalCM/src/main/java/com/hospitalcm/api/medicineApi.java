@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 package com.hospitalcm.api;
+
 //Importación de librerías
-import com.hospitalcm.DAO.TypePresentationDAO;
-import com.hospitalcm.model.TypePresentationModel;
+import com.hospitalcm.DAO.medicineDAO;
+import com.hospitalcm.model.MedicineModel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,18 +32,19 @@ import javax.ws.rs.core.Response;
  * GoDevs Team-2,020
  */
 
-@Path("/typePresentation")
+@Path("/medicine")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 
-public class typePresentationApi {
-    TypePresentationDAO objUse = new TypePresentationDAO();
+
+public class medicineApi {
+    medicineDAO objUse = new medicineDAO();
     
     /*Método POST: Utilizado para insertar una consulta medica en la tabla de
                    base de datos correspondiente
     */
     @POST
-    public Response agregar(TypePresentationModel registro) throws SQLException{
+    public Response agregar(MedicineModel registro) throws SQLException{
         
         boolean agregado = objUse.agregarDAO(registro);  
         if (agregado){
@@ -56,8 +58,8 @@ public class typePresentationApi {
                 base de datos correspondiente
     */
     @GET
-    public List<TypePresentationModel> todos(){
-        List<TypePresentationModel> listaTodos = new ArrayList<TypePresentationModel>();
+    public List<MedicineModel> todos(){
+        List<MedicineModel> listaTodos = new ArrayList<MedicineModel>();
         listaTodos = objUse.obtenerTodosDAO();
         
         return listaTodos;
@@ -68,8 +70,8 @@ public class typePresentationApi {
     */
     @GET
     @Path("/{id}")
-    public TypePresentationModel registro(@PathParam("id") int id){
-        TypePresentationModel objRegistro = new TypePresentationModel();
+    public MedicineModel registro(@PathParam("id") int id){
+        MedicineModel objRegistro = new MedicineModel();
         objRegistro = objUse.obtenerDAO(id);
         
         if(objRegistro != null){
@@ -98,7 +100,7 @@ public class typePresentationApi {
                     de base de datos correspondiente
     */
     @PUT
-    public Response actualizar(TypePresentationModel registro) throws SQLException{
+    public Response actualizar(MedicineModel registro) throws SQLException{
         
         boolean agregado = objUse.actualizarDAO(registro);  
         if (agregado){
@@ -107,5 +109,5 @@ public class typePresentationApi {
             return Response.status(404, "Ocurrió un error al actualizar el registro").build();
         }
         
-    }
+    }    
 }
