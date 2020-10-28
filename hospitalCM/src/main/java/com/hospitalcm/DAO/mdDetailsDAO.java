@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 package com.hospitalcm.DAO;
+
 import com.hospitalcm.conexion.Conexion;
-import com.hospitalcm.model.MedicalDiagnosticModel;
+import com.hospitalcm.model.mdDetailsModel;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 
 
-public class medicalDiagnosticDAO {
+public class mdDetailsDAO {
     //Conexión
     Connection connection;
     Conexion con = new Conexion();
@@ -31,34 +32,34 @@ public class medicalDiagnosticDAO {
     int resultado;
  
     //Declaración de variables de objeto
+    int mdDetails_id;
     int md_id;
-    int mc_id;
-    String md_observations;
-    Date md_beginTime;
-    Date md_endTime;
+    String mdDetails_systomp;
+    int medicine_id;
+    String mdDetails_dose;
     
     //Declaración de Consultas
     //Declaración de consultas a DB
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_MedicalDiagnostic";
-    String selectByID = "Select * from gearsgtc_java_hospital.hl_MedicalDiagnostic WHERE md_id = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_MedicalDiagnostic WHERE md_id = ";
-    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_MedicalDiagnostic SET mc_id = (?), md_observations = (?), md_beginTime = (?), md_endTime = (?) WHERE md_id = ";
-    String INSERT = "Insert into gearsgtc_java_hospital.hl_MedicalDiagnostic  VALUES (NULL, ?, ?, ?, ?)";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_mdDetails";
+    String selectByID = "Select * from gearsgtc_java_hospital.hl_mdDetails WHERE mdDetails_id = ";
+    String deleteByID = "Delete From gearsgtc_java_hospital.hl_mdDetails WHERE mdDetails_id = ";
+    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_mdDetails SET md_id = (?), mdDetails_systomp = (?), medicine_id = (?), mdDetails_dose = (?) WHERE mdDetails_id = ";
+    String INSERT = "Insert into gearsgtc_java_hospital.hl_mdDetails  VALUES (NULL, ?, ?, ?, ?)";
     
     //MÉTODOS CRUD
     //AGREGAR
-    public boolean agregarDAO(MedicalDiagnosticModel objUse){
+    public boolean agregarDAO(mdDetailsModel objUse){
         boolean res;
         
         try{
             String sql = INSERT;
             connection = con.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
-            //statement.setInt(1, objUse.getMd_id());
-            statement.setInt(1, objUse.getMc_id());
-            statement.setString(2, objUse.getMd_observations());
-            statement.setDate(3, objUse.getMd_beginTime());
-            statement.setDate(4, objUse.getMd_endTime());
+            //statement.setInt(1, objUse.getMdDetails_id());
+            statement.setInt(1, objUse.getMd_id());
+            statement.setString(2, objUse.getMdDetails_systomp());
+            statement.setInt(3, objUse.getMedicine_id());
+            statement.setString(4, objUse.getMdDetails_dose());
             statement.execute();
             connection.close();
             res = true;
@@ -73,9 +74,9 @@ public class medicalDiagnosticDAO {
     }
     
     //OBTENER TODOS LAS CONSULTAS MEDICAS
-    public  List<MedicalDiagnosticModel> obtenerTodosDAO(){
+    public  List<mdDetailsModel> obtenerTodosDAO(){
         boolean res;
-        List<MedicalDiagnosticModel> listaTodos = new ArrayList<MedicalDiagnosticModel>();
+        List<mdDetailsModel> listaTodos = new ArrayList<mdDetailsModel>();
         
         try{
             String sql = selectALL;
@@ -88,12 +89,12 @@ public class medicalDiagnosticDAO {
             
             if(res){
                 while(rs.next()){
+                    mdDetails_id = rs.getInt("mdDetails_id");
                     md_id = rs.getInt("md_id");
-                    mc_id = rs.getInt("mc_id");
-                    md_observations = rs.getString("md_observations");
-                    md_beginTime = rs.getDate("md_beginTime");
-                    md_endTime = rs.getDate("md_endTime");
-                    MedicalDiagnosticModel objUse = new MedicalDiagnosticModel(md_id, mc_id, md_observations, md_beginTime, md_endTime);
+                    mdDetails_systomp = rs.getString("mdDetails_systomp");
+                    medicine_id = rs.getInt("medicine_id");
+                    mdDetails_dose = rs.getString("mdDetails_dose");
+                    mdDetailsModel objUse = new mdDetailsModel(mdDetails_id, md_id, mdDetails_systomp, medicine_id, mdDetails_dose);
                     listaTodos.add(objUse);
                 }
             }
@@ -107,9 +108,9 @@ public class medicalDiagnosticDAO {
     }
     
     //OBTENER UNA CONSULTA MEDICA
-     public  MedicalDiagnosticModel obtenerDAO(int idBuscar){
+     public  mdDetailsModel obtenerDAO(int idBuscar){
         boolean res;
-        MedicalDiagnosticModel objUse;
+        mdDetailsModel objUse;
         
         try{
             String sql = selectByID + Integer.toString(idBuscar);
@@ -122,11 +123,11 @@ public class medicalDiagnosticDAO {
             
             if(res){
                 while(rs.next()){
+                    mdDetails_id = rs.getInt("mdDetails_id");
                     md_id = rs.getInt("md_id");
-                    mc_id = rs.getInt("mc_id");
-                    md_observations = rs.getString("md_observations");
-                    md_beginTime = rs.getDate("md_beginTime");
-                    md_endTime = rs.getDate("md_endTime");
+                    mdDetails_systomp = rs.getString("mdDetails_systomp");
+                    medicine_id = rs.getInt("medicine_id");
+                    mdDetails_dose = rs.getString("mdDetails_dose");
                 }
             }
             connection.close();
@@ -134,7 +135,7 @@ public class medicalDiagnosticDAO {
             e.getMessage();
            return null;
         }
-        objUse = new MedicalDiagnosticModel(md_id, mc_id, md_observations, md_beginTime, md_endTime);
+        objUse = new mdDetailsModel(mdDetails_id, md_id, mdDetails_systomp, medicine_id, mdDetails_dose);
         return objUse;
     }
      
@@ -162,18 +163,18 @@ public class medicalDiagnosticDAO {
      
      
     //ACTUALIZAR
-     public boolean actualizarDAO(MedicalDiagnosticModel objUse){
+     public boolean actualizarDAO(mdDetailsModel objUse){
         boolean res;
         
         try{
             String sql = UPDATE;
             connection = con.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
-            //statement.setInt(1, objUse.getMd_id());
-            statement.setInt(1, objUse.getMc_id());
-            statement.setString(2, objUse.getMd_observations());
-            statement.setDate(3, objUse.getMd_beginTime());
-            statement.setDate(4, objUse.getMd_endTime());
+            //statement.setInt(1, objUse.getMdDetails_id());
+            statement.setInt(1, objUse.getMd_id());
+            statement.setString(2, objUse.getMdDetails_systomp());
+            statement.setInt(3, objUse.getMedicine_id());
+            statement.setString(4, objUse.getMdDetails_dose());
             statement.execute();
             connection.close();
             res = true;
