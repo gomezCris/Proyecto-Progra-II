@@ -36,7 +36,6 @@ public class usersApi {
                    base de datos correspondiente
     */
     @POST
-    
     public Response addUse(Users_Model use){
         //Guarda el retorno de la operación del DAO
         res = objUse.addUse(use);
