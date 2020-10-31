@@ -31,6 +31,7 @@ import javax.ws.rs.core.Response;
 public class especialistasApi {
       //Instanciamos el objeto DAO para poder acceder a sus métodos
     especialistasDAO objSpeciality = new especialistasDAO ();
+    boolean res;
     
     /*Método POST: Utilizado para insertar una especialiad en la tabla de
                    base de datos correspondiente
@@ -39,10 +40,10 @@ public class especialistasApi {
     public Response addSpeciality(EspecialistasModel Speciality){
         
         //Guarda el retorno de la operación del DAO
-        boolean result = objSpeciality.addSpeciality(Speciality);
+        res = objSpeciality.addSpeciality(Speciality);
       
         //VAlida que la creación fue exitosa
-        if(result){
+        if(res){
             //REtorna una respuesta de tipo Json si este fue creado exitosamente
             return Response.status(Response.Status.CREATED).build();
         }else{
@@ -51,10 +52,45 @@ public class especialistasApi {
         }
     }
     
-     @GET
+    @GET
     public List<EspecialistasModel> getEspecialistas(){
          List<EspecialistasModel> listaEspecialistas = new ArrayList<EspecialistasModel>();
          listaEspecialistas = objSpeciality.getEspecialistas();
          return listaEspecialistas;
+    }
+    
+    @GET
+    @Path("/{id}")
+    public Response getEspecialidad(@PathParam("id") int id){
+         EspecialistasModel objEspecialidad = objSpeciality.getSpeciality(id);
+         
+         if(objEspecialidad.getSpeciality_id() != 0){
+             return Response.ok(objEspecialidad).build();
+         }else if(objEspecialidad.getSpeciality_id() == 0){
+             return Response.status(200, "Registro no encontrado en base de datos").build();
+         }else{
+             return Response.status(500, "Ocurrió un error al consultar el registro").build();
+         }
+    }
+    
+    @DELETE
+    @Path("/{id}")
+    public Response deleteSpeciality(@PathParam("id") int id){
+        res = objSpeciality.deleteSpeciality(id);
+        if(res){
+            return Response.status(200, "Registro eliminado correctamente").build();
+        }else{
+            return Response.status(500, "Ocurrió un error al eliminar el registro").build();
+        }
+    }
+    
+    @PUT
+    public Response updateSpeciality(EspecialistasModel objEspecialidad){
+        res = objSpeciality.updateSpeciality(objEspecialidad);
+        if(res){
+            return Response.ok(objEspecialidad).build();
+        }else{
+            return Response.status(500, "Ocurrió un error al actualizar el usuario, intente más tarde").build();
+        }
     }
 }

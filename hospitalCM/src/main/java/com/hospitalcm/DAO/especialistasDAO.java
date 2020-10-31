@@ -34,16 +34,14 @@ public class especialistasDAO {
     
     //Declaración de consultas a DB
     String selectALL = "Select * from gearsgtc_java_hospital.hl_Specialitys";
-    String selectByID = "Select * from gearsgtc_java_hospital.hl_Specialitys where speciality_id; = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Specialitys where speciality_id; = ";
-    String updateByID = "";
+    String selectByID = "Select * from gearsgtc_java_hospital.hl_Specialitys where speciality_id = ";
+    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Specialitys where speciality_id = ";
+    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Specialitys SET speciality_name = (?), speciality_description = (?) where speciality_id =";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_Specialitys VALUES (NULL, ?, ?)";
     
     //Creación de métodos
-    //ADD/AGREGAR, Recibe un objeto de tipo ROL
-   public boolean addSpeciality(EspecialistasModel objSpeciality){
-       //Variable de resultado que se retornará
-       boolean res;
+    //AGREGAR
+    public boolean addSpeciality(EspecialistasModel objSpeciality){
        
        try{
            //ASignamos la consulta a la variable sql
@@ -64,14 +62,15 @@ public class especialistasDAO {
            //ASignamos la respuesta como true
            res = true;
            return res;
-   }catch(SQLException e){
+    }catch(SQLException e){
            e.getMessage();
            res = false;
            return res;
-       }
-}
-      
-   public List<EspecialistasModel> getEspecialistas(){
+        }
+    }
+     
+    //OBTENER TODOS LOS REGISTROS
+    public List<EspecialistasModel> getEspecialistas(){
        //Creación de la lista que se devolverá como respuesta
        List<EspecialistasModel> listaEspecialistas = new ArrayList<EspecialistasModel>();
        
@@ -98,20 +97,69 @@ public class especialistasDAO {
            
            connection.close();
            return listaEspecialistas;
-       }catch(SQLException e){
+        }catch(SQLException e){
            return listaEspecialistas;
-       }
-   }
+        }
+    }
+    //OBTENER UN REGISTRO
+    public EspecialistasModel getSpeciality(int idBuscar){
+        EspecialistasModel objEspecialidad;
+        try{
+            connection = con.getConnection();
+            PreparedStatement statement = connection.prepareStatement(selectByID + idBuscar);
+            rs = statement.executeQuery();
+            res = true;
+            if(res){
+                while(rs.next()){
+                   Speciality_id = rs.getInt("speciality_id"); 
+                   Speciality_name = rs.getString("speciality_name");
+                   speciality_description = rs.getString("speciality_description");
+                }
+            }
+            connection.close();
+            objEspecialidad = new EspecialistasModel(Speciality_id, Speciality_name ,speciality_description);
+            return objEspecialidad;
+        }catch(SQLException e){
+           e.getMessage();
+           return null;
+        }
+    }
    
-   public void getSpeciality(){
-       
-   }
+    //ELIMINAR UN REGISTRO
+    public boolean deleteSpeciality(int idBuscar){
+       try{
+            String sql =  deleteByID + Integer.toString(idBuscar);
+            connection = con.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            statement.execute();
+            connection.close();
+            res = true;
+            return res;
+        }catch(SQLException e){
+            e.getMessage();
+            res = false;
+           return res;
+        }
+    }
    
-   public void deleteSpeciality(){
-       
-   }
-   
-   public void updateSpeciality(){
-       
+   //ACTUALIZAR UN REGISTRO
+   public boolean updateSpeciality(EspecialistasModel objEspecialidad){
+       try{
+            String sql = UPDATE + objEspecialidad.getSpeciality_id();
+            connection = con.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            statement.setString(1, objEspecialidad.getSpeciality_name());
+            statement.setString(2, objEspecialidad.getSpeciality_description());
+            statement.execute();
+            connection.close();
+            res = true;
+            return res;
+        }catch(SQLException e){
+            e.getMessage();
+            res = false;
+           return res;
+        }
    }
 }
