@@ -34,19 +34,16 @@ public class modulosDAO {
    String Module_name;
    String Module_description;
     
-    
     //Declaración de consultas a DB
     String selectALL = "Select * from gearsgtc_java_hospital.hl_Modules";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Modules where module_id = ";
     String deleteByID = "Delete From gearsgtc_java_hospital.hl_Modules where module_id = ";
-    String updateByID = "";
+    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Modules SET module_name = (?), module_description = (?) where module_id =";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_Modules VALUES (NULL, ?, ?)";
     
     //Creación de métodos
-    //ADD/AGREGAR, Recibe un objeto de tipo ROL
+    //AGREGAR
    public boolean addModule(ModulosModel objModule){
-       //Variable de resultado que se retornará
-       boolean res;
        
        try{
            //ASignamos la consulta a la variable sql
@@ -75,7 +72,7 @@ public class modulosDAO {
        }
    }
     
-   
+   //OBTENER TODOS LOS REGISTROS
     public List<ModulosModel> getModulos(){
        //Creación de la lista que se devolverá como respuesta
        List<ModulosModel> listaModulos = new ArrayList<ModulosModel>();
@@ -106,17 +103,67 @@ public class modulosDAO {
        }
    }
    
-   public void getModule(){
-       
-   }
+    //OBTENER UN REGISTRO
+    public ModulosModel getModule(int idBuscar){
+       ModulosModel objModule;
+        try{
+            connection = con.getConnection();
+            PreparedStatement statement = connection.prepareStatement(selectByID + idBuscar);
+            rs = statement.executeQuery();
+            res = true;
+            if(res){
+                while(rs.next()){
+                    Modulo_ID = rs.getInt("module_id");
+                    Module_name = rs.getString("module_name");
+                    Module_description = rs.getString("module_description");
+                }
+            }
+            connection.close();
+            objModule = new ModulosModel(Modulo_ID, Module_name, Module_description);
+            return objModule;
+        }catch(SQLException e){
+            e.getMessage();
+            return null;
+        }
+    }
    
-   public void deleteModule(){
-       
-   }
+    //ELIMINAR UN REGISTRO
+    public boolean deleteModule(int idBuscar){
+        try{
+             String sql =  deleteByID + Integer.toString(idBuscar);
+             connection = con.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+
+             statement.execute();
+             connection.close();
+             res = true;
+             return res;
+         }catch(SQLException e){
+             e.getMessage();
+             res = false;
+            return res;
+         }
+    }
    
-   public void updateModule(){
-       
-   }
+    //ACTUALIZAR UN REGISTRO
+    public boolean updateModule(ModulosModel objModule){
+        try{
+            String sql = UPDATE + objModule.getModule_id();
+            connection = con.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            statement.setString(1, objModule.getModule_name());
+            statement.setString(2, objModule.getModule_description());
+            statement.execute();
+            connection.close();
+            res = true;
+            return res;
+        }catch(SQLException e){
+            e.getMessage();
+            res = false;
+           return res;
+        }
+    }
     
     
 }

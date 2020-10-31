@@ -32,7 +32,7 @@ public class modulosApi {
     
      //Instanciamos el objeto DAO para poder acceder a sus métodos
     modulosDAO objModule = new modulosDAO();
-    
+    boolean res;
     /*Método POST: Utilizado para insertar un modulo en la tabla de
                    base de datos correspondiente
     */
@@ -40,10 +40,10 @@ public class modulosApi {
     
     public Response addModule(ModulosModel module){
         //Guarda el retorno de la operación del DAO
-        boolean result = objModule.addModule(module);
+        res = objModule.addModule(module);
         
         //VAlida que la creación fue exitosa
-        if(result){
+        if(res){
             //REtorna una respuesta de tipo Json si este fue creado exitosamente
             return Response.status(Response.Status.CREATED).build();
         }else{
@@ -52,10 +52,57 @@ public class modulosApi {
         }
     }
     
+    /*Método GET: Utilizado para SELECCIONAR todos registros en la tabla de 
+                base de datos correspondiente
+    */
     @GET
     public List<ModulosModel> getModulos(){
          List<ModulosModel> listaModulos = new ArrayList<ModulosModel>();
          listaModulos = objModule.getModulos();
          return listaModulos;
+    }
+    
+    /*Método GET: Utilizado para SELECCIONAR  un registro en la tabla 
+                de base de datos correspondiente por medio de su ID
+    */
+    @GET
+    @Path("/{id}")
+    public Response getModule(@PathParam("id") int id){
+        ModulosModel module = objModule.getModule(id);
+        
+        if(module.getModule_id() != 0){
+            return Response.ok(module).build();
+        }else if(module.getModule_id() == 0){
+            return Response.status(200, "Registro no encontrado en base de datos").build();
+        }else{
+            return Response.status(500, "Ocurrió un error al consultar el registro").build();
+        }
+    }
+    
+    /*Método DELETE: Utilizado para ELIMINAR un registro en la tabla 
+                    de base de datos correspondiente
+    */
+    @DELETE
+    @Path("/{id}")
+    public Response deleteModule(@PathParam("id") int id){
+        res = objModule.deleteModule(id);
+        if(res){
+            return Response.status(200, "Registro eliminado correctamente").build();
+        }else{
+            return Response.status(500, "Ocurrió un error al eliminar el registro").build();
+        }
+    }
+    
+    /*Método PUT: Utilizado para ACTUALIZAR un registro en la tabla 
+                    de base de datos correspondiente
+    */
+    @PUT
+    public Response updateModule(ModulosModel module){
+        res = objModule.updateModule(module);
+        if(res){
+            return Response.ok(module).build();
+        }else{
+            return Response.status(500, "Ocurrió un error al actualizar el usuario, intente más tarde").build();
+        }
     }
 }
