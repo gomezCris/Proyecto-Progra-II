@@ -31,7 +31,7 @@ public class usersApi {
     
       //Instanciamos el objeto DAO para poder acceder a sus métodos
     usersDAO objUse = new usersDAO();
-    
+    boolean res;
     /*Método POST: Utilizado para insertar un rol en la tabla de
                    base de datos correspondiente
     */
@@ -39,10 +39,10 @@ public class usersApi {
     
     public Response addUse(Users_Model use){
         //Guarda el retorno de la operación del DAO
-        boolean result = objUse.addUse(use);
+        res = objUse.addUse(use);
         
         //VAlida que la creación fue exitosa
-        if(result){
+        if(res){
             //REtorna una respuesta de tipo Json si este fue creado exitosamente
             return Response.status(Response.Status.CREATED).build();
         }else{
@@ -51,6 +51,9 @@ public class usersApi {
         }
     }
     
+     /*Método GET: Utilizado para SELECCIONAR todos registros en la tabla de 
+                base de datos correspondiente
+    */
     @GET
     public List<Users_Model> getUsers(){
          List<Users_Model> listaUsers = new ArrayList<Users_Model>();
@@ -58,4 +61,47 @@ public class usersApi {
          return listaUsers;
     }
     
+    /*Método GET: Utilizado para SELECCIONAR  un registro en la tabla 
+                de base de datos correspondiente por medio de su ID
+    */
+    @GET
+    @Path("/{id}")
+    public Response getUser(@PathParam("id") int id){
+        Users_Model user = objUse.getUse(id);
+        
+        if(user.getUser_id() != 0){
+            return Response.ok(user).build();
+        }else if(user.getUser_id() == 0){
+            return Response.status(200, "Registro no encontrado en base de datos").build();
+        }else{
+            return Response.status(500, "Ocurrió un error al consultar el registro").build();
+        }
+    }
+    
+    /*Método DELETE: Utilizado para ELIMINAR un registro en la tabla 
+                    de base de datos correspondiente
+    */
+    @DELETE
+    @Path("/{id}")
+    public Response deleteUser(@PathParam("id") int id){
+        res = objUse.deleteUse(id);
+        if(res){
+            return Response.status(200, "Registro eliminado correctamente").build();
+        }else{
+            return Response.status(500, "Ocurrió un error al eliminar el registro").build();
+        }
+    }
+    
+    /*Método PUT: Utilizado para ACTUALIZAR un registro en la tabla 
+                    de base de datos correspondiente
+    */
+    @PUT
+    public Response updateUser(Users_Model use){
+        res = objUse.updateUse(use);
+        if(res){
+            return Response.ok(use).build();
+        }else{
+            return Response.status(500, "Ocurrió un error al actualizar el usuario, intente más tarde").build();
+        }
+    }
 }
