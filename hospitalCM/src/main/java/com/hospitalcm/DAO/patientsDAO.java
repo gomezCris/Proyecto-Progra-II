@@ -121,7 +121,7 @@ public class patientsDAO {
         Patients_Model objPatients;
         try{
             connection = con.getConnection();
-            PreparedStatement statement = connection.prepareStatement(selectALL);
+            PreparedStatement statement = connection.prepareStatement(selectByID + idBuscar);
             statement.execute();
             rs = statement.executeQuery();
 
