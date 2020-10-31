@@ -50,7 +50,9 @@ public class employeesApi {
         }
     }
     
-    
+    /*Método GET: Utilizado para SELECCIONAR todos registros en la tabla de 
+                base de datos correspondiente
+    */
     @GET
     public List<EmployeesModel> getEmployees(){
          List<EmployeesModel> listaEmployees = new ArrayList<EmployeesModel>();
@@ -58,6 +60,9 @@ public class employeesApi {
          return listaEmployees;
     }
     
+    /*Método GET: Utilizado para SELECCIONAR  un registro en la tabla 
+                de base de datos correspondiente por medio de su ID
+    */
     @GET
     @Path("/{id}")
     public Response getEmployee(@PathParam("id") int id){
@@ -72,6 +77,9 @@ public class employeesApi {
         }
     }
     
+    /*Método DELETE: Utilizado para ELIMINAR un registro en la tabla 
+                    de base de datos correspondiente
+    */
     @DELETE
     @Path("/{id}")
     public Response deleteEmployee(@PathParam("id") int id){
@@ -83,6 +91,9 @@ public class employeesApi {
         }
     }
     
+    /*Método PUT: Utilizado para ACTUALIZAR un registro en la tabla 
+                    de base de datos correspondiente
+    */
     @PUT
     public Response updateEmployee(EmployeesModel objEmployee){
         res = objEmployeeDAO.updateEmployee(objEmployee);

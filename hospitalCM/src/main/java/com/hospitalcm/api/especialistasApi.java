@@ -52,6 +52,9 @@ public class especialistasApi {
         }
     }
     
+    /*Método GET: Utilizado para SELECCIONAR todos registros en la tabla de 
+                base de datos correspondiente
+    */
     @GET
     public List<EspecialistasModel> getEspecialistas(){
          List<EspecialistasModel> listaEspecialistas = new ArrayList<EspecialistasModel>();
@@ -59,6 +62,9 @@ public class especialistasApi {
          return listaEspecialistas;
     }
     
+    /*Método GET: Utilizado para SELECCIONAR  un registro en la tabla 
+                de base de datos correspondiente por medio de su ID
+    */
     @GET
     @Path("/{id}")
     public Response getEspecialidad(@PathParam("id") int id){
@@ -73,6 +79,9 @@ public class especialistasApi {
          }
     }
     
+    /*Método DELETE: Utilizado para ELIMINAR un registro en la tabla 
+                    de base de datos correspondiente
+    */
     @DELETE
     @Path("/{id}")
     public Response deleteSpeciality(@PathParam("id") int id){
@@ -84,6 +93,9 @@ public class especialistasApi {
         }
     }
     
+    /*Método PUT: Utilizado para ACTUALIZAR un registro en la tabla 
+                    de base de datos correspondiente
+    */
     @PUT
     public Response updateSpeciality(EspecialistasModel objEspecialidad){
         res = objSpeciality.updateSpeciality(objEspecialidad);
