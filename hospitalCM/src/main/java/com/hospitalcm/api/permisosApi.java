@@ -30,8 +30,9 @@ import javax.ws.rs.core.Response;
 public class permisosApi {
     
      //Instanciamos el objeto DAO para poder acceder a sus métodos
-   permisosDAO objPermission = new permisosDAO();
+    permisosDAO objPermission = new permisosDAO();
     
+    boolean res;
     /*Método POST: Utilizado para insertar un rol en la tabla de
                    base de datos correspondiente
     */
@@ -39,10 +40,10 @@ public class permisosApi {
     
     public Response addPermission(PermisosModel permission){
         //Guarda el retorno de la operación del DAO
-        boolean result = objPermission.addPermission(permission);
+        res = objPermission.addPermission(permission);
         
         //VAlida que la creación fue exitosa
-        if(result){
+        if(res){
             //REtorna una respuesta de tipo Json si este fue creado exitosamente
             return Response.status(Response.Status.CREATED).build();
         }else{
@@ -51,10 +52,57 @@ public class permisosApi {
         }
     }
     
-     @GET
+    /*Método GET: Utilizado para SELECCIONAR todos registros en la tabla de 
+                base de datos correspondiente
+    */
+    @GET
     public List<PermisosModel> getPermissions(){
          List<PermisosModel> listaPermisos = new ArrayList<PermisosModel>();
          listaPermisos = objPermission.getPermissions();
          return listaPermisos;
+    }
+    
+    /*Método GET: Utilizado para SELECCIONAR  un registro en la tabla 
+                de base de datos correspondiente por medio de su ID
+    */
+    @GET
+    @Path("/{id}")
+    public Response getPermission(@PathParam("id") int id){
+        PermisosModel permission = objPermission.getPermission(id);
+        
+        if(permission.getPermission_Id() != 0){
+            return Response.ok(permission).build();
+        }else if(permission.getPermission_Id() == 0){
+            return Response.status(200, "Registro no encontrado en base de datos").build();
+        }else{
+            return Response.status(500, "Ocurrió un error al consultar el registro").build();
+        }
+    }
+    
+    /*Método DELETE: Utilizado para ELIMINAR un registro en la tabla 
+                    de base de datos correspondiente
+    */
+    @DELETE
+    @Path("/{id}")
+    public Response deletePermission(@PathParam("id") int id){
+        res = objPermission.deletePermission(id);
+        if(res){
+            return Response.status(200, "Registro eliminado correctamente").build();
+        }else{
+            return Response.status(500, "Ocurrió un error al eliminar el registro").build();
+        }
+    }
+    
+    /*Método PUT: Utilizado para ACTUALIZAR un registro en la tabla 
+                    de base de datos correspondiente
+    */
+    @PUT
+    public Response updatePermission(PermisosModel permission){
+        res = objPermission.updatePermission(permission);
+        if(res){
+            return Response.ok(permission).build();
+        }else{
+            return Response.status(500, "Ocurrió un error al actualizar el usuario, intente más tarde").build();
+        }
     }
 }

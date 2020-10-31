@@ -8,6 +8,7 @@ package com.hospitalcm.model;
 public class PermisosModel {
     
     //Declaración de variables
+    int permission_Id;
     int role_id;
     int module_id;
     boolean permission_create;
@@ -20,15 +21,25 @@ public class PermisosModel {
     public PermisosModel() {
     }
 
-    public PermisosModel(int role_id, int module_id, boolean permission_create, boolean permission_read, boolean permission_update, boolean permission_delete) {
+    public PermisosModel(int permission_Id, int role_id, int module_id, boolean permission_create, boolean permission_read, boolean permission_update, boolean permission_delete) {
         this.role_id = role_id;
         this.module_id = module_id;
         this.permission_create = permission_create;
         this.permission_read = permission_read;
         this.permission_update = permission_update;
         this.permission_delete = permission_delete;
+        this.permission_Id = permission_Id;
     }
 
+    public int getPermission_Id() {
+        return permission_Id;
+    }
+
+    public void setPermission_Id(int permission_Id) {
+        this.permission_Id = permission_Id;
+    }
+
+    
     public int getRole_id() {
         return role_id;
     }
