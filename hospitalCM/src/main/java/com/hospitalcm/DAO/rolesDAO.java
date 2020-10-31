@@ -40,7 +40,7 @@ public class rolesDAO {
     String selectALL = "Select * from gearsgtc_java_hospital.hl_Roles";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Roles where role_id = ";
     String deleteByID = "Delete From gearsgtc_java_hospital.hl_Roles where role_id = ";
-    String updateByID = "";
+    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Roles SET role_name = (?), role_description = (?), role_active = (?), role_register = (?) where role_id = ";
     String INSERT = "Insert into earsgtc_java_hospital.hl_Roles VALUES (NULL, ?, ?, ?, ?)";
     
     //Creación de métodos
@@ -74,48 +74,106 @@ public class rolesDAO {
        }
    }
     
-   
+   //OBTENER TODOS LOS REGISTROS
    public List<rolesModel> getRoles(){
        //Creación de la lista que se devolverá como respuesta
        List<rolesModel> listaRoles = new ArrayList<rolesModel>();
        
-       try{
-           connection = con.getConnection();
-           PreparedStatement statement = connection.prepareStatement(selectALL);
-           statement.execute();
-           rs = statement.executeQuery();
-           
-           res = true;
-           if(res){
-               while(rs.next()){
-                   rolId = rs.getInt("role_id");
-                   rolName = rs.getString("role_name");
-                   rolDescription = rs.getString("role_description");
-                   rolActive = rs.getBoolean("role_active");
-                   role_register = rs.getDate("role_register");
-                   
-                   rolesModel objRole = new rolesModel(rolId, rolName, rolDescription, rolActive, role_register);
-                   
-                   listaRoles.add(objRole);
-               }
-           }
-           
-           connection.close();
-           return listaRoles;
-       }catch(SQLException e){
-           return listaRoles;
-       }
+        try{
+            connection = con.getConnection();
+            PreparedStatement statement = connection.prepareStatement(selectALL);
+            statement.execute();
+            rs = statement.executeQuery();
+
+            res = true;
+            if(res){
+                while(rs.next()){
+                    rolId = rs.getInt("role_id");
+                    rolName = rs.getString("role_name");
+                    rolDescription = rs.getString("role_description");
+                    rolActive = rs.getBoolean("role_active");
+                    role_register = rs.getDate("role_register");
+
+                    rolesModel objRole = new rolesModel(rolId, rolName, rolDescription, rolActive, role_register);
+
+                    listaRoles.add(objRole);
+                }
+            }
+
+            connection.close();
+            return listaRoles;
+        }catch(SQLException e){
+            return listaRoles;
+        }
    }
    
-   public void getRole(){
-       
-   }
+    //OBTENER UN REGISTRO
+    public rolesModel getRole(int idBuscar){
+        rolesModel objRole;
+        try{
+             connection = con.getConnection();
+             PreparedStatement statement = connection.prepareStatement(selectByID + idBuscar);
+             statement.execute();
+             rs = statement.executeQuery();
+
+             res = true;
+             if(res){
+                 while(rs.next()){
+                     rolId = rs.getInt("role_id");
+                     rolName = rs.getString("role_name");
+                     rolDescription = rs.getString("role_description");
+                     rolActive = rs.getBoolean("role_active");
+                     role_register = rs.getDate("role_register");
+
+                 }
+             }
+
+             connection.close();
+             objRole = new rolesModel(rolId, rolName, rolDescription, rolActive, role_register);
+             return objRole;
+         }catch(SQLException e){
+             return null;
+         }
+    }
    
-   public void deleteRole(){
-       
-   }
+   //ELIMINAR UN REGISTRO
+    public boolean deleteRole(int idBuscar){
+        try{
+             String sql =  deleteByID + Integer.toString(idBuscar);
+             connection = con.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+
+             statement.execute();
+             connection.close();
+             res = true;
+             return res;
+         }catch(SQLException e){
+             e.getMessage();
+             res = false;
+            return res;
+         }
+    }
    
-   public void updateRole(){
-       
-   }
+    //ACTUALIZAR UN REGISTRO
+    public boolean updateRole(rolesModel objRol){
+        try{
+            String sql = UPDATE + objRol.getRole_id();
+            connection = con.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            
+            statement.setString(1, objRol.getRolName());
+            statement.setString(2, objRol.getRolDescription());
+            statement.setBoolean(3, objRol.isRolActive());
+            statement.setDate(4, objRol.getRole_register());
+            statement.execute();
+            connection.close();
+            res = true;
+            return res;
+        }catch(SQLException e){
+            e.getMessage();
+            res = false;
+           return res;
+        } 
+    }
 }
