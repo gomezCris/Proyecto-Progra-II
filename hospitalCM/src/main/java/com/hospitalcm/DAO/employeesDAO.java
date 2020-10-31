@@ -32,7 +32,7 @@ public class employeesDAO {
     boolean res; 
     
     //Declaración de variables de objeto
-     int Employees_id;
+    int Employees_id;
     Date Employees_startDate;
     float Employees_salary;
     String Employees_positionTitle;
@@ -49,15 +49,13 @@ public class employeesDAO {
     String selectALL = "Select * from gearsgtc_java_hospital.hl_Employees";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Employees where employees_id = ";
     String deleteByID = "Delete From gearsgtc_java_hospital.hl_Employees where employees_id = ";
-    String updateByID = "";
+    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Employees SET employees_startdate = (?), employees_salary = (?),  employees_positionTitle = (?), employees_username = (?), employees_password = (?), employees_stopdate = (?), employees_active = (?), user_id = (?), speciality_id = (?), role_id = (?), employees_register = (?) where employees_id = (?)";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_Employees VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
          
     
     //Creación de métodos
     //ADD/AGREGAR, Recibe un objeto de tipo ROL
    public boolean addEmployee(EmployeesModel objEmployee){
-       //Variable de resultado que se retornará
-       boolean res;
        
        try{
            //ASignamos la consulta a la variable sql
@@ -134,15 +132,81 @@ public class employeesDAO {
        }
    }
    
-   public void getEmployee(){
-       
+   public EmployeesModel getEmployee(int idBuscar){
+       EmployeesModel objEmployee;
+       try{
+           connection = con.getConnection();
+           PreparedStatement statement = connection.prepareStatement(selectByID + idBuscar);
+           rs = statement.executeQuery();
+           res = true;
+           if(res){
+               while(rs.next()){
+                   Employees_id = rs.getInt("employees_id");
+                   Employees_startDate = rs.getDate("employees_startdate");
+                   Employees_salary = rs.getFloat("employees_salary");
+                   Employees_positionTitle = rs.getString("employees_positionTitle");
+                   Employees_username = rs.getString("employees_username"); 
+                   Employees_password = rs.getString("employees_password");
+                   Employees_stopDate = rs.getDate("employees_stopdate");
+                   Employees_active = rs.getBoolean("employees_active");
+                   user_id = rs.getInt("user_id");
+                   speciality_id = rs.getInt("user_id");
+                   role_id = rs.getInt("role_id");
+                   employees_register = rs.getDate("employees_register");
+               }
+           }
+           connection.close();
+           objEmployee = new EmployeesModel(Employees_id, Employees_startDate, Employees_salary, Employees_positionTitle, Employees_username, Employees_password, Employees_stopDate,Employees_active,user_id, speciality_id, role_id, employees_register);
+           return objEmployee;
+       }catch(SQLException e){
+           e.getMessage();
+           return null;
+       }
    }
    
-   public void deleteEmployee(){
-       
+   public boolean deleteEmployee(int idBuscar){
+       try{
+            String sql =  deleteByID + Integer.toString(idBuscar);
+            connection = con.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            statement.execute();
+            connection.close();
+            res = true;
+            return res;
+        }catch(SQLException e){
+            e.getMessage();
+            res = false;
+           return res;
+        }
    }
    
-   public void updateEmployee(){
-       
+   public boolean updateEmployee(EmployeesModel objEmployee){
+       try{
+            String sql = INSERT;
+            connection = con.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            
+            statement.setDate(1, objEmployee.getEmployees_startDate());
+            statement.setFloat(2, objEmployee.getEmployees_salary());
+            statement.setString(3, objEmployee.getEmployees_positionTitle());
+            statement.setString(4, objEmployee.getEmployees_username());
+            statement.setString(5, objEmployee.getEmployees_password());
+            statement.setDate(6, objEmployee.getEmployees_stopDate());
+            statement.setBoolean(7, objEmployee.isEmployees_active());
+            statement.setInt(8, objEmployee.getUser_id());
+            statement.setInt(9, objEmployee.getSpeciality_id());
+            statement.setInt(10, objEmployee.getRole_id());
+            statement.setDate(11, objEmployee.getEmployees_register());
+            statement.execute();
+            connection.close();
+            res = true;
+            return res;
+        }catch(SQLException e){
+            e.getMessage();
+            res = false;
+           return res;
+        }
    }
 }

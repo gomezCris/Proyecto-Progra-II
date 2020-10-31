@@ -30,21 +30,18 @@ import javax.ws.rs.core.Response;
 public class employeesApi {
     
      //Instanciamos el objeto DAO para poder acceder a sus métodos
-    employeesDAO objEmployee = new employeesDAO();
-    
+    employeesDAO objEmployeeDAO = new employeesDAO();
+    boolean res;
     /*Método POST: Utilizado para insertar un empleado en la tabla de
                    base de datos correspondiente
     */
     @POST
-    
     public Response addEmployee(EmployeesModel employee){
-       
-        
         //Guarda el retorno de la operación del DAO
-        boolean result = objEmployee.addEmployee(employee);
+        res = objEmployeeDAO.addEmployee(employee);
         
         //VAlida que la creación fue exitosa
-        if(result){
+        if(res){
             //REtorna una respuesta de tipo Json si este fue creado exitosamente
             return Response.status(Response.Status.CREATED).build();
         }else{
@@ -52,10 +49,47 @@ public class employeesApi {
             return Response.status(400, "Ocurrió un error al registrar el empleado").build();
         }
     }
-      @GET
+    
+    
+    @GET
     public List<EmployeesModel> getEmployees(){
          List<EmployeesModel> listaEmployees = new ArrayList<EmployeesModel>();
-         listaEmployees = objEmployee.getEmployees();
+         listaEmployees = objEmployeeDAO.getEmployees();
          return listaEmployees;
+    }
+    
+    @GET
+    @Path("/{id}")
+    public Response getEmployee(@PathParam("id") int id){
+        EmployeesModel objEmployee = objEmployeeDAO.getEmployee(id);
+        
+        if(objEmployee.getEmployees_id() != 0){
+            return Response.ok(objEmployee).build();
+        }else if(objEmployee.getEmployees_id() == 0){
+            return Response.status(200, "Registro no encontrado en base de datos").build();
+        }else{
+            return Response.status(500, "Ocurrió un error al consultar el registro").build();
+        }
+    }
+    
+    @DELETE
+    @Path("/{id}")
+    public Response deleteEmployee(@PathParam("id") int id){
+        res = objEmployeeDAO.deleteEmployee(id);
+        if(res){
+            return Response.status(200, "Registro eliminado correctamente").build();
+        }else{
+            return Response.status(500, "Ocurrió un error al eliminar el registro").build();
+        }
+    }
+    
+    @PUT
+    public Response updateEmployee(EmployeesModel objEmployee){
+        res = objEmployeeDAO.updateEmployee(objEmployee);
+        if(res){
+            return Response.ok(objEmployee).build();
+        }else{
+            return Response.status(500, "Ocurrió un error al actualizar el usuario, intente más tarde").build();
+        }
     }
 }
