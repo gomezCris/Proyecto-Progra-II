@@ -49,12 +49,12 @@ public class employeesDAO {
     String selectALL = "Select * from gearsgtc_java_hospital.hl_Employees";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Employees where employees_id = ";
     String deleteByID = "Delete From gearsgtc_java_hospital.hl_Employees where employees_id = ";
-    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Employees SET employees_startdate = (?), employees_salary = (?),  employees_positionTitle = (?), employees_username = (?), employees_password = (?), employees_stopdate = (?), employees_active = (?), user_id = (?), speciality_id = (?), role_id = (?), employees_register = (?) where employees_id = (?)";
+    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Employees SET employees_startdate = (?), employees_salary = (?),  employees_positionTitle = (?), employees_username = (?), employees_password = (?), employees_stopdate = (?), employees_active = (?), user_id = (?), speciality_id = (?), role_id = (?), employees_register = (?) where employees_id = ";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_Employees VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
          
     
-    //Creación de métodos
-    //ADD/AGREGAR, Recibe un objeto de tipo ROL
+    //Métodos CRUD
+    //AGREGAR
    public boolean addEmployee(EmployeesModel objEmployee){
        
        try{
@@ -92,8 +92,8 @@ public class employeesDAO {
        
    }
     
-   
-  public List<EmployeesModel> getEmployees(){
+    //OBTENER TODOS LOS REGISTROS
+    public List<EmployeesModel> getEmployees(){
        //Creación de la lista que se devolverá como respuesta
        List<EmployeesModel> listaEmployees = new ArrayList<EmployeesModel>();
        
@@ -132,6 +132,7 @@ public class employeesDAO {
        }
    }
    
+    //OBTENER UN REGISTRO
    public EmployeesModel getEmployee(int idBuscar){
        EmployeesModel objEmployee;
        try{
@@ -164,6 +165,7 @@ public class employeesDAO {
        }
    }
    
+   //ELIMINAR UN REGISTRO
    public boolean deleteEmployee(int idBuscar){
        try{
             String sql =  deleteByID + Integer.toString(idBuscar);
@@ -181,9 +183,10 @@ public class employeesDAO {
         }
    }
    
+   //ACTUALIZAR UN REGISTRO
    public boolean updateEmployee(EmployeesModel objEmployee){
        try{
-            String sql = INSERT;
+            String sql = UPDATE + objEmployee.getEmployees_id();
             connection = con.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             
