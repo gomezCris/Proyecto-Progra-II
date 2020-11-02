@@ -21,7 +21,7 @@ public class Conexion {
              dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
              dataSource.setUsername("gearsgtc_javaser");
              dataSource.setPassword("Nfyxrz15ne03");
-             dataSource.setUrl("jdbc:mysql://dnzmakers.com:3306/gearsgtc_java_hospital?useTimeZone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false");
+             dataSource.setUrl("jdbc:mysql://godevs.dnzmakers.com:3306/gearsgtc_java_hospital?useTimeZone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false");
              dataSource.setInitialSize(20);
              dataSource.setMaxIdle(15);
              dataSource.setMaxTotal(1);
