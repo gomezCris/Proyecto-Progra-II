@@ -49,8 +49,8 @@ public class employeesDAO {
     String selectALL = "Select * from gearsgtc_java_hospital.hl_Employees";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Employees where employees_id = ";
     String deleteByID = "Delete From gearsgtc_java_hospital.hl_Employees where employees_id = ";
-    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Employees SET employees_startdate = (?), employees_salary = (?),  employees_positionTitle = (?), employees_username = (?), employees_password = (?), employees_stopdate = (?), employees_active = (?), user_id = (?), speciality_id = (?), role_id = (?), employees_register = (?) where employees_id = ";
-    String INSERT = "Insert into gearsgtc_java_hospital.hl_Employees VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Employees SET employees_startdate = (?), employees_salary = (?),  employees_positionTitle = (?), employees_username = (?), employees_password = (?), employees_stopdate = (?), employees_active = (?), speciality_id = (?), role_id = (?), employees_register = (?), user_id = (?) where employees_id = ";
+    String INSERT = "Insert into gearsgtc_java_hospital.hl_Employees VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
          
     
     //Métodos CRUD
@@ -73,10 +73,10 @@ public class employeesDAO {
            statement.setString(5, objEmployee.getEmployees_password());
            statement.setDate(6, objEmployee.getEmployees_stopDate());
            statement.setBoolean(7, objEmployee.isEmployees_active()); 
-           statement.setInt(8, objEmployee.getUser_id());
-           statement.setInt(9, objEmployee.getSpeciality_id());
-           statement.setInt(10, objEmployee.getRole_id());
-           statement.setDate(11, objEmployee.getEmployees_register());
+           statement.setInt(8, objEmployee.getSpeciality_id());
+           statement.setInt(9, objEmployee.getRole_id());
+           statement.setDate(10, objEmployee.getEmployees_register());
+           statement.setInt(11, objEmployee.getUser_id());
            //Ejecutamos la consulta
            statement.execute();
            //Cerramos la conexión
@@ -115,7 +115,7 @@ public class employeesDAO {
                    Employees_stopDate = rs.getDate("employees_stopdate");
                    Employees_active = rs.getBoolean("employees_active");
                    user_id = rs.getInt("user_id");
-                   speciality_id = rs.getInt("user_id");
+                   speciality_id = rs.getInt("speciality_id");
                    role_id = rs.getInt("role_id");
                    employees_register = rs.getDate("employees_register");
                    
@@ -151,7 +151,7 @@ public class employeesDAO {
                    Employees_stopDate = rs.getDate("employees_stopdate");
                    Employees_active = rs.getBoolean("employees_active");
                    user_id = rs.getInt("user_id");
-                   speciality_id = rs.getInt("user_id");
+                   speciality_id = rs.getInt("speciality_id");
                    role_id = rs.getInt("role_id");
                    employees_register = rs.getDate("employees_register");
                }
@@ -198,10 +198,10 @@ public class employeesDAO {
             statement.setString(5, objEmployee.getEmployees_password());
             statement.setDate(6, objEmployee.getEmployees_stopDate());
             statement.setBoolean(7, objEmployee.isEmployees_active());
-            statement.setInt(8, objEmployee.getUser_id());
-            statement.setInt(9, objEmployee.getSpeciality_id());
-            statement.setInt(10, objEmployee.getRole_id());
-            statement.setDate(11, objEmployee.getEmployees_register());
+            statement.setInt(8, objEmployee.getSpeciality_id());
+            statement.setInt(9, objEmployee.getRole_id());
+            statement.setDate(10, objEmployee.getEmployees_register());
+            statement.setInt(11, objEmployee.getUser_id());
             statement.execute();
             connection.close();
             res = true;
