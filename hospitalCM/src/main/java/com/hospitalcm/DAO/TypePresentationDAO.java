@@ -164,9 +164,9 @@ public class TypePresentationDAO {
             connection = con.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             //statement.setInt(1, objUse.getMdDetails_id());
-            statement.setInt(1, objUse.getTp_id());
-            statement.setString(2, objUse.getTp_name());
-            statement.setString(4, objUse.getTp_description());
+            statement.setString(1, objUse.getTp_name());
+            statement.setString(2, objUse.getTp_description());
+            statement.setInt(3, objUse.getTp_id());
             statement.execute();
             connection.close();
             res = true;

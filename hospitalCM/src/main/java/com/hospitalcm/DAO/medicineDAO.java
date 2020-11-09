@@ -173,6 +173,7 @@ public class medicineDAO {
             statement.setDouble(2, objUse.getMedicine_costPrice());
             statement.setDouble(3, objUse.getMedicine_costSale());
             statement.setInt(4, objUse.getMedicine_existence());
+            statement.setInt(5, objUse.getMedicine_id());
             statement.execute();
             connection.close();
             res = true;

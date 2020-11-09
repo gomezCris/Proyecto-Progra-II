@@ -174,8 +174,6 @@ public class medicalConsultationDAO {
             String sql = UPDATE;
             connection = con.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
-            
-            
             statement.setInt(1, objUse.getMc_secretary_id());
             statement.setInt(2, objUse.getMc_doctor_id());
             statement.setInt(3, objUse.getPatient_id());
