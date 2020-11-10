@@ -175,6 +175,8 @@ public class mdDetailsDAO {
             statement.setString(2, objUse.getMdDetails_systomp());
             statement.setInt(3, objUse.getMedicine_id());
             statement.setString(4, objUse.getMdDetails_dose());
+            statement.setInt(5, objUse.getMdDetails_id());
+
             statement.execute();
             connection.close();
             res = true;

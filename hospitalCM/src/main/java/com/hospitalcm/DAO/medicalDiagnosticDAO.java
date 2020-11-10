@@ -174,6 +174,7 @@ public class medicalDiagnosticDAO {
             statement.setString(2, objUse.getMd_observations());
             statement.setDate(3, objUse.getMd_beginTime());
             statement.setDate(4, objUse.getMd_endTime());
+            statement.setInt(5, objUse.getMd_id());
             statement.execute();
             connection.close();
             res = true;
