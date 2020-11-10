@@ -41,7 +41,7 @@ public class TypePresentationDAO {
     String selectALL = "Select * from gearsgtc_java_hospital.hl_TypePresentation";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_TypePresentation WHERE tp_id = ";
     String deleteByID = "Delete From gearsgtc_java_hospital.hl_TypePresentation WHERE tp_id = ";
-    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_TypePresentation SET tp_name = (?), tp_description = (?) WHERE tp_id = ";
+    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_TypePresentation SET tp_name = (?), tp_description = (?) WHERE tp_id = (?)";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_TypePresentation  VALUES (NULL, ?, ?)";
     
     //MÉTODOS CRUD
@@ -54,9 +54,8 @@ public class TypePresentationDAO {
             connection = con.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             //statement.setInt(1, objUse.getMdDetails_id());
-            statement.setInt(1, objUse.getTp_id());
-            statement.setString(2, objUse.getTp_name());
-            statement.setString(4, objUse.getTp_description());
+            statement.setString(1, objUse.getTp_name());
+            statement.setString(2, objUse.getTp_description());
             statement.execute();
             connection.close();
             res = true;
