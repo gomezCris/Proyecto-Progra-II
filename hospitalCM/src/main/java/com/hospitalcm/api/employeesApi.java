@@ -46,7 +46,7 @@ public class employeesApi {
             return Response.ok("Registro creado correctamente").build();
         }else{
             //Retorna una respuesta de tipo Json con un mensaje de error
-            return Response.ok("Ocurrió un error al registrar el usuario ").build();
+            return Response.ok("Ocurrió un error al agregar el registro ").build();
         }
     }
     
