@@ -91,7 +91,7 @@ public class medicalDiagnosticApi {
         boolean eliminado = objUse.eliminarDAO(id);
         
         if(eliminado){
-            return Response.ok("Registro eliminado correctamente").build();
+             return Response.ok("Registro eliminado correctamente").build();
         }else{
             return Response.ok("Ocurrió un error al eliminar el registro").build();
         }
