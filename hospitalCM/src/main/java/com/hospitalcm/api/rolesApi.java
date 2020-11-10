@@ -42,10 +42,10 @@ public class rolesApi {
         //VAlida que la creación fue exitosa
         if(res){
             //REtorna una respuesta de tipo Json si este fue creado exitosamente
-            return Response.status(Response.Status.CREATED).build();
+            return Response.ok("Registro creado correctamente").build();
         }else{
             //Retorna una respuesta de tipo Json con un mensaje de error
-            return Response.status(400, "Ocurrió un error al registrar el rol").build();
+            return Response.ok("Ocurrió un error al agregar el registro ").build();
         }
     }
     
@@ -70,9 +70,9 @@ public class rolesApi {
         if(rol.getRole_id() != 0){
             return Response.ok(rol).build();
         }else if(rol.getRole_id() == 0){
-            return Response.status(200, "Registro no encontrado en base de datos").build();
+            return Response.ok("Registro no encontrado en base de datos").build();
         }else{
-            return Response.status(500, "Ocurrió un error al consultar el registro").build();
+            return Response.ok("Ocurrió un error al consultar el registro").build();
         }
     }
     
@@ -84,9 +84,9 @@ public class rolesApi {
     public Response deleteEmployee(@PathParam("id") int id){
         res = objRol.deleteRole(id);
         if(res){
-            return Response.status(200, "Registro eliminado correctamente").build();
+            return Response.ok("Registro eliminado correctamente").build();
         }else{
-            return Response.status(500, "Ocurrió un error al eliminar el registro").build();
+            return Response.ok("Ocurrió un error al eliminar el registro").build();
         }
     }
     
@@ -99,7 +99,7 @@ public class rolesApi {
         if(res){
             return Response.ok(rol).build();
         }else{
-            return Response.status(500, "Ocurrió un error al actualizar el usuario, intente más tarde").build();
+            return Response.ok("Ocurrió un error al actualizar el registro, intente más tarde").build();
         }
     }
 }
