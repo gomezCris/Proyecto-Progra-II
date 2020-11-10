@@ -43,9 +43,9 @@ public class medicalConsultationApi {
         
         boolean agregado = objUse.agregarDAO(registro);  
         if (agregado){
-            return Response.status(Response.Status.CREATED).build();
+            return Response.ok("Registro creado correctamente").build();
         }else{
-            return Response.status(404, "Ocurrió un error al insertar el registro").build();
+            return Response.ok("Ocurrió un error al agregar el registro ").build();
         }
     }
     
@@ -65,14 +65,15 @@ public class medicalConsultationApi {
     */
     @GET
     @Path("/{id}")
-    public medicalConsultationModel registro(@PathParam("id") int id){
-        medicalConsultationModel objRegistro = new medicalConsultationModel();
-        objRegistro = objUse.obtenerDAO(id);
+    public Response registro(@PathParam("id") int id){
+        medicalConsultationModel objRegistro = objUse.obtenerDAO(id);
         
-        if(objRegistro != null){
-            return objRegistro;
+        if(objRegistro.getMc_id() != 0){
+            return Response.ok(objRegistro).build();
+        }else if(objRegistro.getMc_id() == 0){
+            return Response.ok("Registro no encontrado en base de datos").build();
         }else{
-            return null;
+            return Response.ok("Ocurrió un error al consultar el registro").build();
         }
     }
     
@@ -85,9 +86,9 @@ public class medicalConsultationApi {
         boolean eliminado = objUse.eliminarDAO(id);
         
         if(eliminado){
-            return Response.status(200, "¡Eliminado Correctamente!").build();
+             return Response.ok("Registro eliminado correctamente").build();
         }else{
-            return Response.status(500, "Ocurrió un error al tratar de eliminar el registro, intente más tarde").build();   
+            return Response.ok("Ocurrió un error al eliminar el registro").build();
         }
     }
     
@@ -99,9 +100,9 @@ public class medicalConsultationApi {
         
         boolean agregado = objUse.actualizarDAO(registro);  
         if (agregado){
-            return Response.status(200, "¡Registro actualizado exitosamente!").build();
+            return Response.ok(registro).build();
         }else{
-            return Response.status(404, "Ocurrió un error al actualizar el registro").build();
+            return Response.ok("Ocurrió un error al actualizar el registro, intente más tarde").build();
         }
         
     }
