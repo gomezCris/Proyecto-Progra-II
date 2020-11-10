@@ -41,7 +41,7 @@ public class medicineDAO {
     String selectALL = "Select * from gearsgtc_java_hospital.hl_Medicine";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Medicine WHERE medicine_id = ";
     String deleteByID = "Delete From gearsgtc_java_hospital.hl_Medicine WHERE medicine_id = ";
-    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Medicine SET tp_id = (?), medicine_costPrice = (?), medicine_costSale = (?), medicine_existence = (?) WHERE medicine_id = ";
+    String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Medicine SET tp_id = (?), medicine_costPrice = (?), medicine_costSale = (?), medicine_existence = (?) WHERE medicine_id = (?)";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_Medicine  VALUES (NULL, ?, ?, ?, ?)";
     
     //MÉTODOS CRUD
