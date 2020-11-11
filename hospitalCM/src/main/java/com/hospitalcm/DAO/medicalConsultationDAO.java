@@ -37,12 +37,15 @@ public class medicalConsultationDAO {
     int patient_id;
     Date appointment;
     boolean confirmation;
+    boolean active;
     
     //Declaración de Consultas
     //Declaración de consultas a DB
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_MedicalConsultation";
+    //String selectALL = "Select * from gearsgtc_java_hospital.hl_MedicalConsultation";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_MedicalConsultation WHERE active = 1";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_MedicalConsultation WHERE mc_id = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_MedicalConsultation WHERE mc_id = ";
+    //String deleteByID = "Delete From gearsgtc_java_hospital.hl_MedicalConsultation WHERE mc_id = ";
+    String deleteByID = "UPDATE gearsgtc_java_hospital.hl_MedicalConsultation SET active = 0 WHERE mc_id = (?)";
     String UPDATE = "UPDATE gearsgtc_java_hospital.hl_MedicalConsultation SET mc_secretary_id = (?), mc_doctor_id = (?), patient_id = (?), mc_appointment = (?), mc_confirmation = (?) WHERE mc_id = (?)";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_MedicalConsultation  VALUES (NULL, ?, ?, ?, ?, ?)";
     
@@ -97,7 +100,7 @@ public class medicalConsultationDAO {
                     patient_id = rs.getInt("patient_id");
                     appointment = rs.getDate("mc_appointment");
                     confirmation = rs.getBoolean("mc_confirmation");
-                    medicalConsultationModel objUse = new medicalConsultationModel(id, secretary_id, doctor_id, patient_id, appointment, confirmation);
+                    medicalConsultationModel objUse = new medicalConsultationModel(id, secretary_id, doctor_id, patient_id, appointment, confirmation, active);
                     listaTodos.add(objUse);
                 }
             }
@@ -139,7 +142,7 @@ public class medicalConsultationDAO {
             e.getMessage();
            return null;
         }
-        objUse = new medicalConsultationModel(id, secretary_id, doctor_id, patient_id, appointment, confirmation);
+        objUse = new medicalConsultationModel(id, secretary_id, doctor_id, patient_id, appointment, confirmation, active);
         return objUse;
     }
      

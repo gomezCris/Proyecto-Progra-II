@@ -20,17 +20,19 @@ public class medicalConsultationModel {
     int patient_id;
     Date mc_appointment;
     boolean mc_confirmation;
+    boolean active;
 
     public medicalConsultationModel() {
     }
 
-    public medicalConsultationModel(int mc_id, int mc_secretary_id, int mc_doctor_id, int patient_id, Date mc_appointment, boolean mc_confirmation) {
+    public medicalConsultationModel(int mc_id, int mc_secretary_id, int mc_doctor_id, int patient_id, Date mc_appointment, boolean mc_confirmation, boolean active) {
         this.mc_id = mc_id;
         this.mc_secretary_id = mc_secretary_id;
         this.mc_doctor_id = mc_doctor_id;
         this.patient_id = patient_id;
         this.mc_appointment = mc_appointment;
         this.mc_confirmation = mc_confirmation;
+        this.active = active;
     }
 
     public int getMc_id() {
@@ -81,6 +83,13 @@ public class medicalConsultationModel {
         this.mc_confirmation = mc_confirmation;
     }
     
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
     
     
 }
