@@ -42,10 +42,10 @@ public class medicalConsultationDAO {
     //Declaración de Consultas
     //Declaración de consultas a DB
     //String selectALL = "Select * from gearsgtc_java_hospital.hl_MedicalConsultation";
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_MedicalConsultation WHERE active = 1";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_MedicalConsultation WHERE active = true";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_MedicalConsultation WHERE mc_id = ";
     //String deleteByID = "Delete From gearsgtc_java_hospital.hl_MedicalConsultation WHERE mc_id = ";
-    String deleteByID = "UPDATE gearsgtc_java_hospital.hl_MedicalConsultation SET active = 0 WHERE mc_id = (?)";
+    String deleteByID = "UPDATE gearsgtc_java_hospital.hl_MedicalConsultation SET active = false WHERE mc_id =";
     String UPDATE = "UPDATE gearsgtc_java_hospital.hl_MedicalConsultation SET mc_secretary_id = (?), mc_doctor_id = (?), patient_id = (?), mc_appointment = (?), mc_confirmation = (?) WHERE mc_id = (?)";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_MedicalConsultation  VALUES (NULL, ?, ?, ?, ?, ?)";
     
@@ -100,6 +100,7 @@ public class medicalConsultationDAO {
                     patient_id = rs.getInt("patient_id");
                     appointment = rs.getDate("mc_appointment");
                     confirmation = rs.getBoolean("mc_confirmation");
+                    active = rs.getBoolean("active");
                     medicalConsultationModel objUse = new medicalConsultationModel(id, secretary_id, doctor_id, patient_id, appointment, confirmation, active);
                     listaTodos.add(objUse);
                 }
@@ -135,6 +136,7 @@ public class medicalConsultationDAO {
                     patient_id = rs.getInt("patient_id");
                     appointment = rs.getDate("mc_appointment");
                     confirmation = rs.getBoolean("mc_confirmation");
+                    active = rs.getBoolean("active");
                 }
             }
             connection.close();
