@@ -102,6 +102,7 @@ public class patientsApi {
     public Response updatePatient(Patients_Model objPatient){
         res = objPatients.updatePatient(objPatient);
         if(res){
+            objPatient.setActive(true);
             return Response.ok(objPatient).build();
         }else{
             return Response.ok("Ocurrió un error al actualizar el registro, intente más tarde").build();

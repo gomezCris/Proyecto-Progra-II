@@ -103,6 +103,7 @@ public class typePresentationApi {
         
         boolean agregado = objUse.actualizarDAO(registro);  
         if (agregado){
+            registro.setActive(true);
             return Response.ok(registro).build();
         }else{
             return Response.ok("Ocurrió un error al actualizar el registro, intente más tarde").build();

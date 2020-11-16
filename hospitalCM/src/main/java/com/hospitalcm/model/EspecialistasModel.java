@@ -12,16 +12,18 @@ public class EspecialistasModel {
     int speciality_id;
     String speciality_name;
     String speciality_description;
+    boolean active;
     
     //Creación de constructores
 
     public EspecialistasModel() {
     }
 
-    public EspecialistasModel(int speciality_id, String speciality_name, String speciality_description) {
+    public EspecialistasModel(int speciality_id, String speciality_name, String speciality_description, boolean active) {
         this.speciality_id = speciality_id;
         this.speciality_name = speciality_name;
         this.speciality_description = speciality_description;
+        this.active = active;
     }
 
     
@@ -49,5 +51,12 @@ public class EspecialistasModel {
         this.speciality_description = speciality_description;
     }
     
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
     
 }

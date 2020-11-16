@@ -97,6 +97,7 @@ public class rolesApi {
     public Response updateRol(rolesModel rol){
         res = objRol.updateRole(rol);
         if(res){
+            rol.setActive(true);
             return Response.ok(rol).build();
         }else{
             return Response.ok("Ocurrió un error al actualizar el registro, intente más tarde").build();

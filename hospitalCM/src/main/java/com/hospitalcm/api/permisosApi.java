@@ -100,6 +100,7 @@ public class permisosApi {
     public Response updatePermission(PermisosModel permission){
         res = objPermission.updatePermission(permission);
         if(res){
+            permission.setActive(true);
             return Response.ok(permission).build();
         }else{
             return Response.ok("Ocurrió un error al actualizar el registro, intente más tarde").build();

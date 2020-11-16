@@ -19,16 +19,18 @@ public class MedicalDiagnosticModel {
     String md_observations;
     Date md_beginTime;
     Date md_endTime;
+    boolean active;
 
     public MedicalDiagnosticModel() {
     }
 
-    public MedicalDiagnosticModel(int md_id, int mc_id, String md_observations, Date md_beginTime, Date md_endTime) {
+    public MedicalDiagnosticModel(int md_id, int mc_id, String md_observations, Date md_beginTime, Date md_endTime, boolean active) {
         this.md_id = md_id;
         this.mc_id = mc_id;
         this.md_observations = md_observations;
         this.md_beginTime = md_beginTime;
         this.md_endTime = md_endTime;
+        this.active = active;
     }
 
     public int getMd_id() {
@@ -69,6 +71,14 @@ public class MedicalDiagnosticModel {
 
     public void setMd_endTime(Date md_endTime) {
         this.md_endTime = md_endTime;
+    }
+    
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
     
     

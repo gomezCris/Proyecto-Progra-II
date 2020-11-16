@@ -11,16 +11,18 @@ public class ModulosModel {
     int module_id;
     String module_name;
     String module_description;
+    boolean active;
     
     //Creación de constructores
 
     public ModulosModel() {
     }
 
-    public ModulosModel(int module_id, String module_name, String module_description) {
+    public ModulosModel(int module_id, String module_name, String module_description, boolean active) {
         this.module_id = module_id;
         this.module_name = module_name;
         this.module_description = module_description;
+        this.active = active;
     }
 
     public int getModule_id() {
@@ -47,5 +49,13 @@ public class ModulosModel {
         this.module_description = module_description;
     }
     
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     
 }

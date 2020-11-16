@@ -14,17 +14,19 @@ public class rolesModel {
     String rolDescription;
     boolean rolActive;
     Date role_register;
+    boolean active;
     
     //Creación de constructores
     public rolesModel() {
     }
 
-    public rolesModel(int role_id, String rolName, String rolDescription, boolean rolActive, Date role_register) {
+    public rolesModel(int role_id, String rolName, String rolDescription, boolean rolActive, Date role_register, boolean active) {
         this.role_id = role_id;
         this.rolName = rolName;
         this.rolDescription = rolDescription;
         this.rolActive = rolActive;
         this.role_register = role_register;
+        this.active = active;
     }
 
     public int getRole_id() {
@@ -69,6 +71,13 @@ public class rolesModel {
         this.role_register = role_register;
     }
     
-    
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     
 }

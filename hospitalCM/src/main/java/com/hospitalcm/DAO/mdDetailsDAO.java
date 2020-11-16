@@ -37,12 +37,13 @@ public class mdDetailsDAO {
     String mdDetails_systomp;
     int medicine_id;
     String mdDetails_dose;
+    boolean active;
     
     //Declaración de Consultas
     //Declaración de consultas a DB
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_mdDetails";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_mdDetails WHERE active = true";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_mdDetails WHERE mdDetails_id = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_mdDetails WHERE mdDetails_id = ";
+    String deleteByID = "UPDATE From gearsgtc_java_hospital.hl_mdDetails SET active = false WHERE mdDetails_id = ";
     String UPDATE = "UPDATE gearsgtc_java_hospital.hl_mdDetails SET md_id = (?), mdDetails_systomp = (?), medicine_id = (?), mdDetails_dose = (?) WHERE mdDetails_id = (?)";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_mdDetails  VALUES (NULL, ?, ?, ?, ?)";
     
@@ -94,7 +95,8 @@ public class mdDetailsDAO {
                     mdDetails_systomp = rs.getString("mdDetails_systomp");
                     medicine_id = rs.getInt("medicine_id");
                     mdDetails_dose = rs.getString("mdDetails_dose");
-                    mdDetailsModel objUse = new mdDetailsModel(mdDetails_id, md_id, mdDetails_systomp, medicine_id, mdDetails_dose);
+                    active = rs.getBoolean("active");
+                    mdDetailsModel objUse = new mdDetailsModel(mdDetails_id, md_id, mdDetails_systomp, medicine_id, mdDetails_dose, active);
                     listaTodos.add(objUse);
                 }
             }
@@ -128,6 +130,7 @@ public class mdDetailsDAO {
                     mdDetails_systomp = rs.getString("mdDetails_systomp");
                     medicine_id = rs.getInt("medicine_id");
                     mdDetails_dose = rs.getString("mdDetails_dose");
+                    active = rs.getBoolean("active");
                 }
             }
             connection.close();
@@ -135,7 +138,7 @@ public class mdDetailsDAO {
             e.getMessage();
            return null;
         }
-        objUse = new mdDetailsModel(mdDetails_id, md_id, mdDetails_systomp, medicine_id, mdDetails_dose);
+        objUse = new mdDetailsModel(mdDetails_id, md_id, mdDetails_systomp, medicine_id, mdDetails_dose, active);
         return objUse;
     }
      

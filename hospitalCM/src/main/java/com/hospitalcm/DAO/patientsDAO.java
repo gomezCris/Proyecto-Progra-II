@@ -36,12 +36,13 @@ public class patientsDAO {
    Date Patient_stopdate; 
    boolean Patient_active; 
    int user_id;
-   Date patient_register; 
+   Date patient_register;
+   boolean active;
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_Patients";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Patients where active = true";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Patients where patient_id = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Patients where patient_id = ";
+    String deleteByID = "UPDATE From gearsgtc_java_hospital.hl_Patients SET active = false where patient_id = ";
     String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Patients SET patient_startdate = (?), patient_username = (?), patient_password = (?), patient_stopdate = (?), patient_active = (?), user_id = (?), patient_register = (?) where patient_id = ";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_Patients VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
     
@@ -102,8 +103,9 @@ public class patientsDAO {
                     Patient_active = rs.getBoolean("patient_active");
                     user_id = rs.getInt("user_id");
                     patient_register = rs.getDate("patient_register");
+                    active = rs.getBoolean("active");
 
-                    Patients_Model objPatients = new Patients_Model( patient_id,  Patient_startdate, Patient_username,  Patient_password ,  Patient_stopdate,Patient_active, user_id, patient_register);
+                    Patients_Model objPatients = new Patients_Model( patient_id,  Patient_startdate, Patient_username,  Patient_password ,  Patient_stopdate,Patient_active, user_id, patient_register, active);
 
                     listaPatients.add(objPatients);
                 }
@@ -136,11 +138,12 @@ public class patientsDAO {
                     Patient_active = rs.getBoolean("patient_active");
                     user_id = rs.getInt("user_id");
                     patient_register = rs.getDate("patient_register");
+                    active = rs.getBoolean("active");
                 }
             }
 
             connection.close();
-            objPatients = new Patients_Model( patient_id,  Patient_startdate, Patient_username,  Patient_password ,  Patient_stopdate,Patient_active, user_id, patient_register);
+            objPatients = new Patients_Model( patient_id,  Patient_startdate, Patient_username,  Patient_password ,  Patient_stopdate,Patient_active, user_id, patient_register, active);
             return objPatients;
         }catch(SQLException e){
             e.getMessage();

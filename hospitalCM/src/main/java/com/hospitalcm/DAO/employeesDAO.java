@@ -44,11 +44,12 @@ public class employeesDAO {
     int speciality_id;
     int role_id;
     Date employees_register;
+    boolean active;
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_Employees";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Employees WHERE active = true";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Employees where employees_id = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Employees where employees_id = ";
+    String deleteByID = "UPDATE From gearsgtc_java_hospital.hl_Employees SET active = false where employees_id = ";
     String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Employees SET employees_startdate = (?), employees_salary = (?),  employees_positionTitle = (?), employees_username = (?), employees_password = (?), employees_stopdate = (?), employees_active = (?), speciality_id = (?), role_id = (?), employees_register = (?), user_id = (?) where employees_id = ";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_Employees VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
          
@@ -118,8 +119,9 @@ public class employeesDAO {
                    speciality_id = rs.getInt("speciality_id");
                    role_id = rs.getInt("role_id");
                    employees_register = rs.getDate("employees_register");
+                   active = rs.getBoolean("active");
                    
-                   EmployeesModel objEmployee = new EmployeesModel(Employees_id, Employees_startDate, Employees_salary, Employees_positionTitle, Employees_username, Employees_password, Employees_stopDate,Employees_active,user_id, speciality_id, role_id, employees_register);
+                   EmployeesModel objEmployee = new EmployeesModel(Employees_id, Employees_startDate, Employees_salary, Employees_positionTitle, Employees_username, Employees_password, Employees_stopDate,Employees_active,user_id, speciality_id, role_id, employees_register, active);
                    
                    listaEmployees.add(objEmployee);
                }
@@ -154,10 +156,11 @@ public class employeesDAO {
                    speciality_id = rs.getInt("speciality_id");
                    role_id = rs.getInt("role_id");
                    employees_register = rs.getDate("employees_register");
+                   active = rs.getBoolean("active");
                }
            }
            connection.close();
-           objEmployee = new EmployeesModel(Employees_id, Employees_startDate, Employees_salary, Employees_positionTitle, Employees_username, Employees_password, Employees_stopDate,Employees_active,user_id, speciality_id, role_id, employees_register);
+           objEmployee = new EmployeesModel(Employees_id, Employees_startDate, Employees_salary, Employees_positionTitle, Employees_username, Employees_password, Employees_stopDate,Employees_active,user_id, speciality_id, role_id, employees_register, active);
            return objEmployee;
        }catch(SQLException e){
            e.getMessage();

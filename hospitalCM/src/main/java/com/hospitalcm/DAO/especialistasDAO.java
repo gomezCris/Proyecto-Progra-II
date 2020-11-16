@@ -30,12 +30,13 @@ public class especialistasDAO {
     int Speciality_id; 
     String Speciality_name;
     String speciality_description;
+    boolean active;
     
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_Specialitys";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Specialitys WHERE active = true";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Specialitys where speciality_id = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Specialitys where speciality_id = ";
+    String deleteByID = "UPDATE From gearsgtc_java_hospital.hl_Specialitys SET active = false where speciality_id = ";
     String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Specialitys SET speciality_name = (?), speciality_description = (?) where speciality_id =";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_Specialitys VALUES (NULL, ?, ?)";
     
@@ -87,9 +88,10 @@ public class especialistasDAO {
                    Speciality_id = rs.getInt("speciality_id"); 
                    Speciality_name = rs.getString("speciality_name");
                    speciality_description = rs.getString("speciality_description");
+                   active = rs.getBoolean("active");
                    
                    
-                   EspecialistasModel objSpeciality = new EspecialistasModel(Speciality_id, Speciality_name ,speciality_description);
+                   EspecialistasModel objSpeciality = new EspecialistasModel(Speciality_id, Speciality_name ,speciality_description, active);
                    
                    listaEspecialistas.add(objSpeciality);
                }
@@ -114,10 +116,11 @@ public class especialistasDAO {
                    Speciality_id = rs.getInt("speciality_id"); 
                    Speciality_name = rs.getString("speciality_name");
                    speciality_description = rs.getString("speciality_description");
+                   active = rs.getBoolean("active");
                 }
             }
             connection.close();
-            objEspecialidad = new EspecialistasModel(Speciality_id, Speciality_name ,speciality_description);
+            objEspecialidad = new EspecialistasModel(Speciality_id, Speciality_name ,speciality_description, active);
             return objEspecialidad;
         }catch(SQLException e){
            e.getMessage();

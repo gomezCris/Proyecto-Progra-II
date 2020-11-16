@@ -37,12 +37,13 @@ public class usersDAO {
     String User_phonenumber; 
     Date User_birthdate; 
     String User_address; 
-    boolean User_active; 
+    boolean User_active;
+    boolean active;
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_Users";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Users WHERE active = true";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Users where user_id = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Users where user_id = ";
+    String deleteByID = "UPDATE From gearsgtc_java_hospital.hl_Users SET active = false where user_id = ";
     String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Users SET  user_firstname = (?), user_lastname = (?), user_email = (?), user_phonenumber = (?), user_birthdate = (?), user_address = (?), user_active = (?), user_register = (?) where user_id = ";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_Users  VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
     
@@ -104,8 +105,9 @@ public class usersDAO {
                     User_address = rs.getString("user_address");
                     User_active = rs.getBoolean("user_active");
                     user_register = rs.getDate("user_register");
+                    active = rs.getBoolean("active");
 
-                    Users_Model objUse = new Users_Model(user_id, User_firstname,  User_lastname,  User_email, User_phonenumber, User_birthdate,User_address,User_active,user_register);
+                    Users_Model objUse = new Users_Model(user_id, User_firstname,  User_lastname,  User_email, User_phonenumber, User_birthdate,User_address,User_active,user_register, active);
 
                     listaUsers.add(objUse);
                 }
@@ -139,12 +141,13 @@ public class usersDAO {
                     User_address = rs.getString("user_address");
                     User_active = rs.getBoolean("user_active");
                     user_register = rs.getDate("user_register");
+                    active = rs.getBoolean("active");
 
                 }
             }
 
             connection.close();
-            objUse = new Users_Model(user_id, User_firstname,  User_lastname,  User_email, User_phonenumber, User_birthdate,User_address,User_active,user_register);
+            objUse = new Users_Model(user_id, User_firstname,  User_lastname,  User_email, User_phonenumber, User_birthdate,User_address,User_active,user_register, active);
             return objUse;
         }catch(SQLException e){
             return null;

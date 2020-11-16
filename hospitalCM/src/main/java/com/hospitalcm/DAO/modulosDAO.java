@@ -33,11 +33,12 @@ public class modulosDAO {
    int Modulo_ID; 
    String Module_name;
    String Module_description;
+   boolean active;
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_Modules";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Modules WHERE active = true";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Modules where module_id = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Modules where module_id = ";
+    String deleteByID = "UPDATE From gearsgtc_java_hospital.hl_Modules SET active = false where  module_id = ";
     String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Modules SET module_name = (?), module_description = (?) where module_id =";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_Modules VALUES (NULL, ?, ?)";
     
@@ -89,8 +90,9 @@ public class modulosDAO {
                    Modulo_ID = rs.getInt("module_id");
                    Module_name = rs.getString("module_name");
                    Module_description = rs.getString("module_description");
+                   active = rs.getBoolean("active");
                    
-                   ModulosModel objModule = new ModulosModel(Modulo_ID, Module_name, Module_description);
+                   ModulosModel objModule = new ModulosModel(Modulo_ID, Module_name, Module_description, active);
                    
                    listaModulos.add(objModule);
                }
@@ -116,10 +118,11 @@ public class modulosDAO {
                     Modulo_ID = rs.getInt("module_id");
                     Module_name = rs.getString("module_name");
                     Module_description = rs.getString("module_description");
+                    active = rs.getBoolean("active");
                 }
             }
             connection.close();
-            objModule = new ModulosModel(Modulo_ID, Module_name, Module_description);
+            objModule = new ModulosModel(Modulo_ID, Module_name, Module_description, active);
             return objModule;
         }catch(SQLException e){
             e.getMessage();

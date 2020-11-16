@@ -35,12 +35,13 @@ public class TypePresentationDAO {
     int tp_id;
     String tp_name;
     String tp_description;
+    boolean active;
     
     //Declaración de Consultas
     //Declaración de consultas a DB
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_TypePresentation";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_TypePresentation WHERE active = true";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_TypePresentation WHERE tp_id = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_TypePresentation WHERE tp_id = ";
+    String deleteByID = "UPDATE From gearsgtc_java_hospital.hl_TypePresentation SET active = false WHERE tp_id = ";
     String UPDATE = "UPDATE gearsgtc_java_hospital.hl_TypePresentation SET tp_name = (?), tp_description = (?) WHERE tp_id = (?)";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_TypePresentation  VALUES (NULL, ?, ?)";
     
@@ -88,7 +89,8 @@ public class TypePresentationDAO {
                     tp_id = rs.getInt("tp_id");
                     tp_name = rs.getString("tp_name");
                     tp_description = rs.getString("tp_description");
-                    TypePresentationModel objUse = new TypePresentationModel(tp_id, tp_name, tp_description);
+                    active = rs.getBoolean("active");
+                    TypePresentationModel objUse = new TypePresentationModel(tp_id, tp_name, tp_description, active);
                     listaTodos.add(objUse);
                 }
             }
@@ -120,6 +122,7 @@ public class TypePresentationDAO {
                     tp_id = rs.getInt("tp_id");
                     tp_name = rs.getString("tp_name");
                     tp_description = rs.getString("tp_description");
+                    active = rs.getBoolean("active");
                 }
             }
             connection.close();
@@ -127,7 +130,7 @@ public class TypePresentationDAO {
             e.getMessage();
            return null;
         }
-        objUse = new TypePresentationModel(tp_id, tp_name, tp_description);
+        objUse = new TypePresentationModel(tp_id, tp_name, tp_description, active);
         return objUse;
     }
      

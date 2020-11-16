@@ -19,16 +19,18 @@ public class mdDetailsModel {
     String mdDetails_systomp;
     int medicine_id;
     String mdDetails_dose;
+    boolean active;
 
     public mdDetailsModel() {
     }
 
-    public mdDetailsModel(int mdDetails_id, int md_id, String mdDetails_systomp, int medicine_id, String mdDetails_dose) {
+    public mdDetailsModel(int mdDetails_id, int md_id, String mdDetails_systomp, int medicine_id, String mdDetails_dose, boolean active) {
         this.mdDetails_id = mdDetails_id;
         this.md_id = md_id;
         this.mdDetails_systomp = mdDetails_systomp;
         this.medicine_id = medicine_id;
         this.mdDetails_dose = mdDetails_dose;
+        this.active = active;
     }
 
     public int getMdDetails_id() {
@@ -70,5 +72,13 @@ public class mdDetailsModel {
     public void setMdDetails_dose(String mdDetails_dose) {
         this.mdDetails_dose = mdDetails_dose;
     }
-    
+
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
 }

@@ -15,14 +15,16 @@ public class TypePresentationModel {
     int tp_id;
     String tp_name;
     String tp_description;
+    boolean active;
 
     public TypePresentationModel() {
     }
 
-    public TypePresentationModel(int tp_id, String tp_name, String tp_description) {
+    public TypePresentationModel(int tp_id, String tp_name, String tp_description, boolean active) {
         this.tp_id = tp_id;
         this.tp_name = tp_name;
         this.tp_description = tp_description;
+        this.active = active;
     }
 
     public int getTp_id() {
@@ -48,5 +50,13 @@ public class TypePresentationModel {
     public void setTp_description(String tp_description) {
         this.tp_description = tp_description;
     }
-       
+
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
 }

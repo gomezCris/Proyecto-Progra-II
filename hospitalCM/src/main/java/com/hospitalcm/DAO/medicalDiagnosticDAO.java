@@ -36,12 +36,13 @@ public class medicalDiagnosticDAO {
     String md_observations;
     Date md_beginTime;
     Date md_endTime;
+    boolean active;
     
     //Declaración de Consultas
     //Declaración de consultas a DB
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_MedicalDiagnostic";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_MedicalDiagnostic WHERE active = true";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_MedicalDiagnostic WHERE md_id = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_MedicalDiagnostic WHERE md_id = ";
+    String deleteByID = "UPDATE From gearsgtc_java_hospital.hl_MedicalDiagnostic SET active = false WHERE md_id = ";
     String UPDATE = "UPDATE gearsgtc_java_hospital.hl_MedicalDiagnostic SET mc_id = (?), md_observations = (?), md_beginTime = (?), md_endTime = (?) WHERE md_id = (?)";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_MedicalDiagnostic  VALUES (NULL, ?, ?, ?, ?)";
     
@@ -93,7 +94,8 @@ public class medicalDiagnosticDAO {
                     md_observations = rs.getString("md_observations");
                     md_beginTime = rs.getDate("md_beginTime");
                     md_endTime = rs.getDate("md_endTime");
-                    MedicalDiagnosticModel objUse = new MedicalDiagnosticModel(md_id, mc_id, md_observations, md_beginTime, md_endTime);
+                    active = rs.getBoolean("active");
+                    MedicalDiagnosticModel objUse = new MedicalDiagnosticModel(md_id, mc_id, md_observations, md_beginTime, md_endTime, active);
                     listaTodos.add(objUse);
                 }
             }
@@ -127,6 +129,7 @@ public class medicalDiagnosticDAO {
                     md_observations = rs.getString("md_observations");
                     md_beginTime = rs.getDate("md_beginTime");
                     md_endTime = rs.getDate("md_endTime");
+                    active = rs.getBoolean("active");
                 }
             }
             connection.close();
@@ -134,7 +137,7 @@ public class medicalDiagnosticDAO {
             e.getMessage();
            return null;
         }
-        objUse = new MedicalDiagnosticModel(md_id, mc_id, md_observations, md_beginTime, md_endTime);
+        objUse = new MedicalDiagnosticModel(md_id, mc_id, md_observations, md_beginTime, md_endTime, active);
         return objUse;
     }
      

@@ -23,6 +23,7 @@ public class EmployeesModel {
     int speciality_id;
     int role_id;
     Date employees_register;
+    boolean active;
     
     
     //Creación de constructores
@@ -30,7 +31,7 @@ public class EmployeesModel {
     public EmployeesModel() {
     }
 
-    public EmployeesModel(int employees_id, Date employees_startDate, float employees_salary, String employees_positionTitle, String employees_username, String employees_password, Date employees_stopDate, boolean employees_active, int user_id, int speciality_id, int role_id, Date employees_register) {
+    public EmployeesModel(int employees_id, Date employees_startDate, float employees_salary, String employees_positionTitle, String employees_username, String employees_password, Date employees_stopDate, boolean employees_active, int user_id, int speciality_id, int role_id, Date employees_register, boolean active) {
         this.employees_id = employees_id;
         this.employees_startDate = employees_startDate;
         this.employees_salary = employees_salary;
@@ -43,6 +44,7 @@ public class EmployeesModel {
         this.speciality_id = speciality_id;
         this.role_id = role_id;
         this.employees_register = employees_register;
+        this.active = active;
     }
 
 
@@ -142,5 +144,13 @@ public class EmployeesModel {
         this.employees_register = employees_register;
     }
 
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
     
 }

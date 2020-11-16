@@ -15,13 +15,14 @@ public class PermisosModel {
     boolean permission_read;
     boolean permission_update;
     boolean permission_delete;
+    boolean active;
  
    //Creación de constructores
 
     public PermisosModel() {
     }
 
-    public PermisosModel(int permission_Id, int role_id, int module_id, boolean permission_create, boolean permission_read, boolean permission_update, boolean permission_delete) {
+    public PermisosModel(int permission_Id, int role_id, int module_id, boolean permission_create, boolean permission_read, boolean permission_update, boolean permission_delete, boolean active) {
         this.role_id = role_id;
         this.module_id = module_id;
         this.permission_create = permission_create;
@@ -29,6 +30,7 @@ public class PermisosModel {
         this.permission_update = permission_update;
         this.permission_delete = permission_delete;
         this.permission_Id = permission_Id;
+        this.active = active;
     }
 
     public int getPermission_Id() {
@@ -88,6 +90,14 @@ public class PermisosModel {
 
     public void setPermission_delete(boolean permission_delete) {
         this.permission_delete = permission_delete;
+    }
+
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
     
     

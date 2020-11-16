@@ -37,11 +37,12 @@ public class permisosDAO {
     boolean Permission_read;
     boolean Permission_update;
     boolean Permission_delete;
+    boolean active;
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_Permissions";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Permissions WHERE active = true";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Permissions where permission_id = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Permissions where permission_id = ";
+    String deleteByID = "UPDATE From gearsgtc_java_hospital.hl_Permissions SET active = false where permission_id = ";
     String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Permissions SET role_id = (?), module_id = (?), permission_create = (?), permission_read = (?), permission_update = (?), permission_delete = (?)  where permission_id =";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_Permissions VALUES (NULL, ?, ?, ?, ?, ?, ?)";
     
@@ -99,8 +100,9 @@ public class permisosDAO {
                     Permission_read = rs.getBoolean("permission_read");
                     Permission_update = rs.getBoolean("permission_update");
                     Permission_delete = rs.getBoolean("permission_delete");
+                    active = rs.getBoolean("active");
 
-                    PermisosModel objPermissions = new PermisosModel(Permission_Id,rolId, ModuleId, Permission_create, Permission_read, Permission_update, Permission_delete);
+                    PermisosModel objPermissions = new PermisosModel(Permission_Id,rolId, ModuleId, Permission_create, Permission_read, Permission_update, Permission_delete, active);
 
                     listaPermisos.add(objPermissions);
                 }
@@ -132,11 +134,12 @@ public class permisosDAO {
                     Permission_read = rs.getBoolean("permission_read");
                     Permission_update = rs.getBoolean("permission_update");
                     Permission_delete = rs.getBoolean("permission_delete");
+                    active = rs.getBoolean("active");
                 }
             }
 
             connection.close();
-            objPermissions = new PermisosModel(Permission_Id,rolId, ModuleId, Permission_create, Permission_read, Permission_update, Permission_delete);
+            objPermissions = new PermisosModel(Permission_Id,rolId, ModuleId, Permission_create, Permission_read, Permission_update, Permission_delete, active);
             return objPermissions;
         }catch(SQLException e){
             return null;

@@ -98,6 +98,7 @@ public class employeesApi {
     public Response updateEmployee(EmployeesModel objEmployee){
         res = objEmployeeDAO.updateEmployee(objEmployee);
         if(res){
+            objEmployee.setActive(true);
             return Response.ok(objEmployee).build();
         }else{
             return Response.ok("Ocurrió un error al actualizar el registro, intente más tarde").build();

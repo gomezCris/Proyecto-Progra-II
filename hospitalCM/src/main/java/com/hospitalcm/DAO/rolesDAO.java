@@ -35,11 +35,12 @@ public class rolesDAO {
     String rolDescription;
     boolean rolActive;
     Date role_register;
+    boolean active;
     
     //Declaración de consultas a DB
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_Roles";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Roles WHERE active = true";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Roles where role_id = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Roles where role_id = ";
+    String deleteByID = "UPDATE From gearsgtc_java_hospital.hl_Roles SET active = false where role_id = ";
     String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Roles SET role_name = (?), role_description = (?), role_active = (?), role_register = (?) where role_id = ";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_Roles VALUES (NULL, ?, ?, ?, ?)";
     
@@ -93,8 +94,9 @@ public class rolesDAO {
                     rolDescription = rs.getString("role_description");
                     rolActive = rs.getBoolean("role_active");
                     role_register = rs.getDate("role_register");
+                    active = rs.getBoolean("active");
 
-                    rolesModel objRole = new rolesModel(rolId, rolName, rolDescription, rolActive, role_register);
+                    rolesModel objRole = new rolesModel(rolId, rolName, rolDescription, rolActive, role_register, active);
 
                     listaRoles.add(objRole);
                 }
@@ -124,12 +126,13 @@ public class rolesDAO {
                      rolDescription = rs.getString("role_description");
                      rolActive = rs.getBoolean("role_active");
                      role_register = rs.getDate("role_register");
+                     active = rs.getBoolean("active");
 
                  }
              }
 
              connection.close();
-             objRole = new rolesModel(rolId, rolName, rolDescription, rolActive, role_register);
+             objRole = new rolesModel(rolId, rolName, rolDescription, rolActive, role_register, active);
              return objRole;
          }catch(SQLException e){
              return null;

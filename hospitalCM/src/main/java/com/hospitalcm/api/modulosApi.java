@@ -100,6 +100,7 @@ public class modulosApi {
     public Response updateModule(ModulosModel module){
         res = objModule.updateModule(module);
         if(res){
+            module.setActive(true);
             return Response.ok(module).build();
         }else{
             return Response.ok("Ocurrió un error al actualizar el registro, intente más tarde").build();

@@ -98,6 +98,7 @@ public class usersApi {
     public Response updateUser(Users_Model use){
         res = objUse.updateUse(use);
         if(res){
+            use.setActive(true);
             return Response.ok(use).build();
         }else{
             return Response.ok("Ocurrió un error al actualizar el usuario, intente más tarde").build();

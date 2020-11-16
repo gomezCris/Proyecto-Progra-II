@@ -17,16 +17,18 @@ public class MedicineModel {
     double medicine_costPrice;
     double medicine_costSale;
     int medicine_existence;
-
+    boolean active;
+    
     public MedicineModel() {
     }
 
-    public MedicineModel(int medicine_id, int tp_id, double medicine_costPrice, double medicine_costSale, int medicine_existence) {
+    public MedicineModel(int medicine_id, int tp_id, double medicine_costPrice, double medicine_costSale, int medicine_existence, boolean active) {
         this.medicine_id = medicine_id;
         this.tp_id = tp_id;
         this.medicine_costPrice = medicine_costPrice;
         this.medicine_costSale = medicine_costSale;
         this.medicine_existence = medicine_existence;
+        this.active = active;
     }
 
     public int getMedicine_id() {
@@ -67,6 +69,13 @@ public class MedicineModel {
 
     public void setMedicine_existence(int medicine_existence) {
         this.medicine_existence = medicine_existence;
+    }
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
     
     

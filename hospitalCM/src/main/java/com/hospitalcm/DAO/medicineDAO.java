@@ -35,12 +35,13 @@ public class medicineDAO {
     double medicine_costPrice;
     double medicine_costSale;
     int medicine_existence;
+    boolean active;
     
     //Declaración de Consultas
     //Declaración de consultas a DB
-    String selectALL = "Select * from gearsgtc_java_hospital.hl_Medicine";
+    String selectALL = "Select * from gearsgtc_java_hospital.hl_Medicine WHERE active = true";
     String selectByID = "Select * from gearsgtc_java_hospital.hl_Medicine WHERE medicine_id = ";
-    String deleteByID = "Delete From gearsgtc_java_hospital.hl_Medicine WHERE medicine_id = ";
+    String deleteByID = "UPDATE From gearsgtc_java_hospital.hl_Medicine SET active = false WHERE medicine_id = ";
     String UPDATE = "UPDATE gearsgtc_java_hospital.hl_Medicine SET tp_id = (?), medicine_costPrice = (?), medicine_costSale = (?), medicine_existence = (?) WHERE medicine_id = (?)";
     String INSERT = "Insert into gearsgtc_java_hospital.hl_Medicine  VALUES (NULL, ?, ?, ?, ?)";
     
@@ -92,7 +93,8 @@ public class medicineDAO {
                     medicine_costPrice = rs.getDouble("medicine_costPrice");
                     medicine_costSale = rs.getDouble("medicine_costSale");
                     medicine_existence = rs.getInt("medicine_existence");
-                    MedicineModel objUse = new MedicineModel(medicine_id, tp_id, medicine_costPrice, medicine_costSale, medicine_existence);
+                    active = rs.getBoolean("active");
+                    MedicineModel objUse = new MedicineModel(medicine_id, tp_id, medicine_costPrice, medicine_costSale, medicine_existence, active);
                     listaTodos.add(objUse);
                 }
             }
@@ -126,6 +128,7 @@ public class medicineDAO {
                     medicine_costPrice = rs.getDouble("medicine_costPrice");
                     medicine_costSale = rs.getDouble("medicine_costSale");
                     medicine_existence = rs.getInt("medicine_existence");
+                    active = rs.getBoolean("active");
                 }
             }
             connection.close();
@@ -133,7 +136,7 @@ public class medicineDAO {
             e.getMessage();
            return null;
         }
-        objUse = new MedicineModel(medicine_id, tp_id, medicine_costPrice, medicine_costSale, medicine_existence);
+        objUse = new MedicineModel(medicine_id, tp_id, medicine_costPrice, medicine_costSale, medicine_existence, active);
         return objUse;
     }
      

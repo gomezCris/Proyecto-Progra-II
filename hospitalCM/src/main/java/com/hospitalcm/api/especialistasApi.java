@@ -100,6 +100,7 @@ public class especialistasApi {
     public Response updateSpeciality(EspecialistasModel objEspecialidad){
         res = objSpeciality.updateSpeciality(objEspecialidad);
         if(res){
+            objEspecialidad.setActive(true);
             return Response.ok(objEspecialidad).build();
         }else{
             return Response.ok("Ocurrió un error al actualizar el registro, intente más tarde").build();
